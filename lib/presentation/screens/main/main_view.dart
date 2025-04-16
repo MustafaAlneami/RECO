@@ -19,15 +19,18 @@ class MainView extends StatelessWidget {
     final viewModel = Provider.of<MainViewModel>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('hola')),
-      body: IndexedStack(
-        index: viewModel.currentIndex,
-        children: _pages,
-      ),
+      appBar: AppBar(title: const Text('HOLA')),
+      // body: IndexedStack(
+      //   index: viewModel.currentIndex,
+      //   children: _pages,
+      // ),
+      body: Consumer<MainViewModel>(builder: (context, mainViewModel, child) {
+        return _pages[viewModel.currentIndex];
+      }),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.changePage,
-        selectedItemColor: Colors.orange,
+        selectedItemColor: Colors.red,
         unselectedItemColor: Colors.black87,
         iconSize: 30,
         selectedFontSize: 10,
@@ -35,11 +38,9 @@ class MainView extends StatelessWidget {
         showUnselectedLabels: false,
         selectedIconTheme: const IconThemeData(size: 40),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today), label: 'Calendar'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ' '),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: ' '),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ' '),
         ],
       ),
     );
