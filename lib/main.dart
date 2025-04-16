@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         bottomNavigationBar: BottomNavigationBar(
           iconSize: 30,
           selectedFontSize: 10,
-          selectedItemColor: Colors.orange,
+          selectedItemColor: Colors.red,
           unselectedItemColor: Colors.black87,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -53,17 +53,20 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {});
           },
           items: [
+            BottomNavigationBarItem(icon: const Icon(Icons.home), label: ' '),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.home), label: 'home'),
+                icon: const Icon(Icons.calendar_today), label: ' '),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.calendar_today), label: 'calender'),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.settings), label: 'settings')
+                icon: const Icon(Icons.settings), label: ' ')
           ],
         ),
         appBar: AppBar(
           title: Text('hola'),
         ),
-        body: bottomNavigationPages[indexy]);
+        body: indexy == 0
+            ? const HomeView()
+            : indexy == 1
+                ? const CalenderView()
+                : const SettingView());
   }
 }
