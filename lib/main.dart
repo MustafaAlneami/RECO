@@ -29,14 +29,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int indexy = 0;
   List<Widget> bottomNavigationPages = [
     const HomeView(),
-    //const Rewardspage(),
     const CalenderView(),
     const SettingView()
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), body: Text('data'));
+    return Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          iconSize: 30,
+          selectedFontSize: 10,
+          selectedItemColor: Colors.orange,
+          unselectedItemColor: Colors.black87,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedIconTheme:
+              const IconThemeData(size: 40, applyTextScaling: false),
+          currentIndex: indexy,
+          onTap: (val) {
+            indexy = val;
+            setState(() {});
+          },
+          items: [
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.home), label: 'home'),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.calendar_today), label: 'calender'),
+            BottomNavigationBarItem(
+                icon: const Icon(Icons.settings), label: 'settings')
+          ],
+        ),
+        appBar: AppBar(
+          title: Text('hola'),
+        ),
+        body: bottomNavigationPages[indexy]);
   }
 }
