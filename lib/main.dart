@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:reco_is_here/presentation/screens/calender/calender_view.dart';
-import 'package:reco_is_here/presentation/screens/home/home_view.dart';
-import 'package:reco_is_here/presentation/screens/setting/setting_view.dart';
+import 'package:provider/provider.dart';
+
+import 'package:reco_is_here/presentation/screens/main/main_view.dart';
+import 'package:reco_is_here/presentation/screens/main/main_view_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => MainViewModel()),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,59 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const MyHomePage(),
+      home: const MainView(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int indexy = 0;
-  List<Widget> bottomNavigationPages = [
-    const HomeView(),
-    const CalenderView(),
-    const SettingView()
-  ];
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          iconSize: 30,
-          selectedFontSize: 10,
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.black87,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedIconTheme:
-              const IconThemeData(size: 40, applyTextScaling: false),
-          currentIndex: indexy,
-          onTap: (val) {
-            indexy = val;
-            setState(() {});
-          },
-          items: [
-            BottomNavigationBarItem(icon: const Icon(Icons.home), label: ' '),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.calendar_today), label: ' '),
-            BottomNavigationBarItem(
-                icon: const Icon(Icons.settings), label: ' ')
-          ],
-        ),
-        appBar: AppBar(
-          title: Text('hola'),
-        ),
-        body: indexy == 0
-            ? const HomeView()
-            : indexy == 1
-                ? const CalenderView()
-                : const SettingView());
   }
 }
