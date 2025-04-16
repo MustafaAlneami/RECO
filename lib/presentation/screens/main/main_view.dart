@@ -20,13 +20,13 @@ class MainView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('HOLA')),
-      // body: IndexedStack(
-      //   index: viewModel.currentIndex,
-      //   children: _pages,
-      // ),
-      body: Consumer<MainViewModel>(builder: (context, mainViewModel, child) {
-        return _pages[viewModel.currentIndex];
-      }),
+      body: IndexedStack(
+        index: viewModel.currentIndex,
+        children: _pages,
+      ),
+      // body: Consumer<MainViewModel>(builder: (context, mainViewModel, child) {
+      //   return _pages[viewModel.currentIndex];
+      // }),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: viewModel.currentIndex,
         onTap: viewModel.changePage,
