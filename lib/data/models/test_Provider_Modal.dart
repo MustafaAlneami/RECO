@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TestProviderModal extends ChangeNotifier {
-  final int _age = 1;
+  int _age = 1;
   int get age => _age;
-  int incremento() {
-    int results = age + 1;
+
+  void incremento() {
+    _age++;
     notifyListeners();
-    return results;
   }
 }

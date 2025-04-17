@@ -12,16 +12,23 @@ class HomeView extends StatefulWidget {
 class _HomeView extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    final provyModel = Provider.of<TestProviderModal>(context);
+    //final provyModel = Provider.of<TestProviderModal>(context);
     return Scaffold(
       body: Column(
         children: [
-          IndexedStack(
-            children: [
-              Text("$provyModel.age"),
-            ],
-          ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.add))
+          Consumer<TestProviderModal>(
+              builder: (context, testProviderModal, child) {
+            return Column(
+              children: [
+                Text("${testProviderModal.age}"),
+              ],
+            );
+          }),
+          IconButton(
+              onPressed: () {
+                context.read()<TestProviderModal>().incremento();
+              },
+              icon: Icon(Icons.add))
         ],
       ),
     );
