@@ -23,37 +23,13 @@ class _HomeContentView extends State<HomeContentView> {
             children: [
               Stack(
                 children: [
-                  Container(
+                  SizedBox(
                     width: 330,
-                    height: 200,
-                    color: Colors.green,
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: 85,
-                          height: 50,
-                          child: Card(
-                            color: Color(0xFFD8F3DC),
-                            child: Column(
-                              children: [
-                                Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      '3/3/25',
-                                    )),
-                                Container(
-                                    alignment: Alignment.center,
-                                    child: Text('7:00 AM')),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                    height: 230,
+                    //color: Colors.green,
+                    child: Image.asset(
+                      'images/t1.jpg',
+                      fit: BoxFit.fill,
                     ),
                   ),
                   Positioned(
@@ -63,7 +39,9 @@ class _HomeContentView extends State<HomeContentView> {
                       width: 50,
                       height: 50,
                       child: Card(
-                        color: Color(0xFFD8F3DC),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        color: Color(0xFFE9F5EC),
                         child: Icon(Icons.book),
                       ),
                     ),
@@ -75,7 +53,9 @@ class _HomeContentView extends State<HomeContentView> {
                       width: 55,
                       height: 35,
                       child: Card(
-                        color: Color(0xFFD8F3DC),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        color: Color(0xFFE9F5EC),
                         child: Text(' 10:00'),
                       ),
                     ),
@@ -84,16 +64,25 @@ class _HomeContentView extends State<HomeContentView> {
               ),
               Container(
                 width: 330,
-                height: 50,
+                height: 30,
                 color: Color(0xFFE9F5EC),
-                child: Text('this the content title '),
+                child: Text('I Let ChatGPT Control My Life for 24 Hours '),
               ),
               Container(
                 width: 330,
-                height: 40,
+                height: 30,
                 color: Color(0xFFD8F3DC),
                 child: Row(
-                  children: [Icon(Icons.person), Text('john bin london')],
+                  children: [
+                    Image.asset(
+                      'images/creator1.jpg',
+                      fit: BoxFit.fill,
+                    ),
+                    Text(
+                      ' Kurzgesagt – In a Nutshell',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
                 ),
               ),
               Row(
