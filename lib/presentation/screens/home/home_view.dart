@@ -33,7 +33,7 @@ class _HomeView extends State<HomeView> {
       //         icon: Icon(Icons.add))
       //   ],
       // ),
-      body: HomeContentView(),
+      body: Text(' data is here broooooooooo'),
     );
   }
 }

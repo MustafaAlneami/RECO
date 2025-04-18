@@ -1,7 +1,35 @@
 import 'package:flutter/material.dart';
 
 class HomeContentView extends StatefulWidget {
-  const HomeContentView({super.key});
+  //channel properties
+  final String chanelName;
+  final String chanelLogo;
+  final String chanelsTags;
+  final int channelId;
+  //vids properties
+  final String vidTitle;
+  final int vidId;
+  final String vidDuration;
+  final String vidDate;
+  final String vidThumbnail;
+  final String vidLink;
+  final String vidDescription;
+  final String vidPlatform;
+
+  const HomeContentView(
+      {super.key,
+      required this.vidTitle,
+      required this.chanelName,
+      required this.vidDuration,
+      required this.vidDate,
+      required this.vidThumbnail,
+      required this.vidLink,
+      required this.vidDescription,
+      required this.chanelsTags,
+      required this.chanelLogo,
+      required this.channelId,
+      required this.vidId,
+      required this.vidPlatform});
 
   @override
   State<HomeContentView> createState() => _HomeContentView();
@@ -27,8 +55,8 @@ class _HomeContentView extends State<HomeContentView> {
                     width: 330,
                     height: 230,
                     //color: Colors.green,
-                    child: Image.asset(
-                      'images/t1.jpg',
+                    child: Image.network(
+                      widget.vidThumbnail,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -42,8 +70,8 @@ class _HomeContentView extends State<HomeContentView> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         color: Color(0xFFE9F5EC),
-                        child: Image.asset(
-                          'images/yt logo.avif',
+                        child: Image.network(
+                          widget.vidPlatform,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -59,7 +87,7 @@ class _HomeContentView extends State<HomeContentView> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         color: Color(0xFFEDEBFA),
-                        child: Text(' 10:00'),
+                        child: Text(widget.vidDuration),
                       ),
                     ),
                   ),
@@ -68,19 +96,19 @@ class _HomeContentView extends State<HomeContentView> {
               SizedBox(
                 width: 330,
                 height: 30,
-                child: Text('I Let ChatGPT Control My Life for 24 Hours '),
+                child: Text(widget.vidTitle),
               ),
               SizedBox(
                 width: 330,
                 height: 30,
                 child: Row(
                   children: [
-                    Image.asset(
-                      'images/creator1.jpg',
+                    Image.network(
+                      widget.chanelLogo,
                       fit: BoxFit.fill,
                     ),
                     Text(
-                      ' Kurzgesagt – In a Nutshell',
+                      widget.chanelName,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -130,7 +158,7 @@ class _HomeContentView extends State<HomeContentView> {
                   width: 350,
                   height: 40,
                   child: Text(
-                    '3th june 25 , 10:00 AM',
+                    widget.vidDate,
                     style: TextStyle(fontSize: 18),
                   ),
                 ),
