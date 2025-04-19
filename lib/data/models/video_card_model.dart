@@ -31,26 +31,26 @@ class VideoCard {
   });
 
   factory VideoCard.fromJson(Map<String, dynamic> json) {
-    final attributes = json['attributes'] ?? {};
-
+    // No need to look for 'attributes' - the fields are directly in json
     String resolveImage(Map<String, dynamic>? data) {
-      final url = data?['attributes']?['url'];
+      if (data == null) return '';
+      final url = data['url'];
       return url != null ? 'https://strapi-reco.onrender.com$url' : '';
     }
 
     return VideoCard(
-      chanelName: attributes['chanelName'] ?? '',
-      chanelLogo: resolveImage(attributes['chanelLogo']?['data']),
-      chanelsTags: attributes['chanelsTags'] ?? '',
-      channelId: int.tryParse(attributes['channelId']?.toString() ?? '0') ?? 0,
-      vidTitle: attributes['vidTitle'] ?? '',
-      vidId: int.tryParse(attributes['vidId']?.toString() ?? '0') ?? 0,
-      vidDuration: attributes['vidDuration'] ?? '',
-      vidDate: attributes['vidDate'] ?? '',
-      vidThumbnail: resolveImage(attributes['vidThumbnail']?['data']),
-      vidLink: attributes['vidLink'] ?? '',
-      vidDescription: attributes['vidDescription'] ?? '',
-      vidPlatform: resolveImage(attributes['vidPlatform']?['data']),
+      chanelName: json['chanelName'] ?? '',
+      chanelLogo: resolveImage(json['chanelLogo']),
+      chanelsTags: json['chanelsTags'] ?? '',
+      channelId: int.tryParse(json['channelId']?.toString() ?? '0') ?? 0,
+      vidTitle: json['vidTitle'] ?? 'still getting data',
+      vidId: int.tryParse(json['vidId']?.toString() ?? '0') ?? 0,
+      vidDuration: json['vidDuration'] ?? '',
+      vidDate: json['vidDate'] ?? '',
+      vidThumbnail: resolveImage(json['vidThumbnail']),
+      vidLink: json['vidLink'] ?? '',
+      vidDescription: json['vidDescription'] ?? '',
+      vidPlatform: resolveImage(json['vidPlatform']),
     );
   }
 }

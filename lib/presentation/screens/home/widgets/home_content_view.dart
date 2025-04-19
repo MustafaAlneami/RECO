@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeContentView extends StatefulWidget {
   //channel properties
@@ -36,6 +37,13 @@ class HomeContentView extends StatefulWidget {
 }
 
 class _HomeContentView extends State<HomeContentView> {
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -133,16 +141,23 @@ class _HomeContentView extends State<HomeContentView> {
                       ),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.all(1),
-                    width: 160,
-                    height: 40,
-                    color: Color(0xFFFFD8B1),
-                    child: Text(
-                      'Watch ',
-                      style: TextStyle(
-                        fontSize: 20,
+                  InkWell(
+                    onTap: () {
+                      // widget.vidLink;
+                      // print('vidLink: ${widget.vidLink}');
+                      _launchURL(widget.vidLink);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.all(1),
+                      width: 160,
+                      height: 40,
+                      color: Color(0xFFFFD8B1),
+                      child: Text(
+                        'Watch ',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   )

@@ -8,7 +8,7 @@ class ApiService {
 
   Future<List<VideoCard>> fetchVideoCards() async {
     final response = await http.get(Uri.parse(baseUrl));
-
+    //print('Raw API response: ${response.body}');
     if (response.statusCode == 200) {
       final decoded = jsonDecode(response.body);
       final List<dynamic> data = decoded['data'];

@@ -39,6 +39,14 @@ class _HomeView extends State<HomeView> {
                 itemCount: cards.length,
                 itemBuilder: (context, indexy) {
                   final card = cards[indexy];
+
+                  // return Card(
+                  //   child: ListTile(
+                  //     title: Text(card.chanelName),
+                  //     subtitle: Text('data'),
+                  //     leading: Image.network(card.chanelLogo),
+                  //   ),
+                  // ),
                   return HomeContentView(
                     chanelName: card.chanelName,
                     chanelsTags: card.chanelsTags,
