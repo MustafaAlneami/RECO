@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reco_is_here/data/models/strapi_Api_modal.dart';
 import 'package:reco_is_here/data/models/test_Provider_Modal.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/home_content_view.dart';
 
@@ -33,7 +34,13 @@ class _HomeView extends State<HomeView> {
       //         icon: Icon(Icons.add))
       //   ],
       // ),
-      body: Text(' data is here broooooooooo'),
+      body: StreamBuilder(
+        stream: strapiFetchVideoCard(),
+        initialData: 'No joke yet',
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          return Text(snapshot.data['vidTitle']);
+        },
+      ),
     );
   }
 }
