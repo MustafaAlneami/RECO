@@ -92,6 +92,7 @@ class _HomeContentView extends State<HomeContentView> {
                       width: 55,
                       height: 35,
                       child: Card(
+                        margin: EdgeInsets.all(6),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         color: Color(0xFFEDEBFA),
@@ -104,7 +105,10 @@ class _HomeContentView extends State<HomeContentView> {
               SizedBox(
                 width: 330,
                 height: 30,
-                child: Text(widget.vidTitle),
+                child: Text(
+                  widget.vidTitle,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
               SizedBox(
                 width: 330,
