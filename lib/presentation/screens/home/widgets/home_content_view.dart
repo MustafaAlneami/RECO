@@ -89,10 +89,10 @@ class _HomeContentView extends State<HomeContentView> {
                     bottom: 10,
                     right: 10,
                     child: SizedBox(
-                      width: 55,
-                      height: 35,
+                      width: 50,
+                      height: 25,
                       child: Card(
-                        margin: EdgeInsets.all(6),
+                        margin: EdgeInsets.all(1),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         color: Color(0xFFEDEBFA),
@@ -135,7 +135,7 @@ class _HomeContentView extends State<HomeContentView> {
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.all(1),
-                    width: 160,
+                    width: 170,
                     height: 40,
                     color: Color(0xFFF6C1D7),
                     child: Text(
@@ -154,7 +154,7 @@ class _HomeContentView extends State<HomeContentView> {
                     child: Container(
                       alignment: Alignment.center,
                       margin: EdgeInsets.all(1),
-                      width: 160,
+                      width: 170,
                       height: 40,
                       color: Color(0xFFFFD8B1),
                       child: Text(
@@ -174,7 +174,7 @@ class _HomeContentView extends State<HomeContentView> {
                 child: Container(
                   margin: EdgeInsets.all(1),
                   alignment: Alignment.center,
-                  width: 350,
+                  width: 360,
                   height: 40,
                   child: Text(
                     widget.vidDate,
