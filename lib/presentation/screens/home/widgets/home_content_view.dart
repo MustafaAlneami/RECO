@@ -59,25 +59,26 @@ class _HomeContentView extends State<HomeContentView> {
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    width: 330,
-                    height: 230,
-                    //color: Colors.green,
-                    child: Image.network(
-                      widget.vidThumbnail,
-                      fit: BoxFit.fill,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: SizedBox(
+                      width: 330,
+                      height: 230,
+                      //color: Colors.green,
+                      child: Image.network(
+                        widget.vidThumbnail,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Positioned(
                     bottom: 10,
                     left: 10,
                     child: SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5)),
-                        color: Color(0xFFE9F5EC),
+                      width: 35,
+                      height: 35,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
                         child: Image.network(
                           widget.vidPlatform,
                           fit: BoxFit.fill,
@@ -90,13 +91,13 @@ class _HomeContentView extends State<HomeContentView> {
                     right: 10,
                     child: SizedBox(
                       width: 50,
-                      height: 25,
+                      height: 28,
                       child: Card(
-                        margin: EdgeInsets.all(1),
+                        margin: EdgeInsets.all(3),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         color: Color(0xFFEDEBFA),
-                        child: Text(widget.vidDuration),
+                        child: Text(' ${widget.vidDuration}'),
                       ),
                     ),
                   ),
@@ -107,7 +108,10 @@ class _HomeContentView extends State<HomeContentView> {
                 height: 30,
                 child: Text(
                   widget.vidTitle,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.normal),
                 ),
               ),
               SizedBox(
@@ -115,13 +119,23 @@ class _HomeContentView extends State<HomeContentView> {
                 height: 30,
                 child: Row(
                   children: [
-                    Image.network(
-                      widget.chanelLogo,
-                      fit: BoxFit.fill,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: Image.network(
+                        widget.chanelLogo,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
                     ),
                     Text(
                       widget.chanelName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic),
                     ),
                   ],
                 ),
