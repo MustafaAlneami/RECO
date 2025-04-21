@@ -39,6 +39,7 @@ class MainView extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
       // 👇 Using BottomAppBar instead of BottomNavigationBar
+      //remember to add the notch margin to the bottom app bar
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
