@@ -62,7 +62,7 @@ class _HomeContentView extends State<HomeContentView> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: SizedBox(
-                      width: 330,
+                      width: 345,
                       height: 230,
                       //color: Colors.green,
                       child: Image.network(
@@ -138,16 +138,16 @@ class _HomeContentView extends State<HomeContentView> {
                           fontStyle: FontStyle.italic),
                     ),
                     //testing something
-                    SizedBox(
-                      width: 5,
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(200),
-                      child: Image.network(
-                        'https://drive.google.com/uc?export=view&id=1_WrACPPdvIIIObhiwh1pIBa8J7P-taDW',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    // SizedBox(
+                    //   width: 5,
+                    // ),
+                    // ClipRRect(
+                    //   borderRadius: BorderRadius.circular(200),
+                    //   child: Image.network(
+                    //     'https://drive.google.com/uc?export=view&id=1_WrACPPdvIIIObhiwh1pIBa8J7P-taDW',
+                    //     fit: BoxFit.fill,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
