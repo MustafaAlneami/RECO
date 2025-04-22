@@ -137,6 +137,17 @@ class _HomeContentView extends State<HomeContentView> {
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic),
                     ),
+                    //testing something
+                    SizedBox(
+                      width: 5,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(200),
+                      child: Image.network(
+                        'https://drive.google.com/uc?export=view&id=1_WrACPPdvIIIObhiwh1pIBa8J7P-taDW',
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ],
                 ),
               ),
