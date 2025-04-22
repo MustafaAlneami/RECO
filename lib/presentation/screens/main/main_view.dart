@@ -40,6 +40,7 @@ class MainView extends StatelessWidget {
 
       // 👇 Using BottomAppBar instead of BottomNavigationBar
       //remember to add the notch margin to the bottom app bar
+      //tested with a circular notch
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 8.0,
