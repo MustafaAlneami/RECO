@@ -132,6 +132,10 @@ class _HomeContentView extends State<HomeContentView> {
                       child: Image.network(
                         widget.chanelLogo,
                         fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset('images/profile_placeholder.jpg',
+                              fit: BoxFit.fill);
+                        },
                       ),
                     ),
                     SizedBox(
