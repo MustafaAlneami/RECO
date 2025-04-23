@@ -55,7 +55,6 @@ class _HomeView extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        //  physics: const BouncingScrollPhysics(),
         children: [
           // Tag filtering buttons
           Consumer<VideoTagProvider>(
