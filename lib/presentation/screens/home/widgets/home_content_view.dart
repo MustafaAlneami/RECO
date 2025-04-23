@@ -207,6 +207,8 @@ class _HomeContentView extends State<HomeContentView> {
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3)),
+                //this the needed color purple
+                //color: Color.fromARGB(255, 166, 149, 241),
                 color: Color.fromARGB(255, 166, 149, 241),
                 child: Container(
                   margin: EdgeInsets.all(1),

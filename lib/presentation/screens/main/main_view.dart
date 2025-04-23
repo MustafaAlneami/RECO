@@ -21,7 +21,26 @@ class MainView extends StatelessWidget {
     final viewModel = Provider.of<MainViewModel>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('HOLA')),
+      appBar: AppBar(
+        leading: Icon(
+          Icons.menu,
+          color: Colors.indigo,
+        ),
+        title: const Text('RECO ',
+            style:
+                TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold)),
+        // backgroundColor: Colors.white70, // light pink
+        centerTitle: true,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.indigo),
+            onPressed: () {
+              // Your action here
+            },
+          ),
+        ],
+      ),
       body: IndexedStack(
         index: viewModel.currentIndex,
         children: _pages,
