@@ -1,8 +1,3 @@
-//
-//
-//
-//
-//this the the neww
 //this the the neww
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -67,7 +62,8 @@ class _HomeView extends State<HomeView> {
                     children: tags.map((tag) {
                       final isSelected = videotagProvider.selectedTag == tag;
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
