@@ -31,26 +31,19 @@ class VideoCard {
   });
 
   factory VideoCard.fromJson(Map<String, dynamic> json) {
-    // No need to look for 'attributes' - the fields are directly in json
-    String resolveImage(Map<String, dynamic>? data) {
-      if (data == null) return '';
-      final url = data['url'];
-      return url != null ? 'https://strapi-reco.onrender.com$url' : '';
-    }
-
     return VideoCard(
       chanelName: json['chanelName'] ?? '',
-      chanelLogo: resolveImage(json['chanelLogo']),
+      chanelLogo: json['chanelLogo'] ?? '', // Direct string
       chanelsTags: json['chanelsTags'] ?? '',
       channelId: int.tryParse(json['channelId']?.toString() ?? '0') ?? 0,
       vidTitle: json['vidTitle'] ?? 'still getting data',
       vidId: int.tryParse(json['vidId']?.toString() ?? '0') ?? 0,
       vidDuration: json['vidDuration'] ?? '',
       vidDate: json['vidDate'] ?? '',
-      vidThumbnail: resolveImage(json['vidThumbnail']),
+      vidThumbnail: json['vidThumbnail'] ?? '', // ✅ Now it's a string
       vidLink: json['vidLink'] ?? '',
       vidDescription: json['vidDescription'] ?? '',
-      vidPlatform: resolveImage(json['vidPlatform']),
+      vidPlatform: json['vidPlatform'] ?? '', // ✅ This too
     );
   }
 }
