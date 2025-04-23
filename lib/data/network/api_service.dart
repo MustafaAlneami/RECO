@@ -6,9 +6,14 @@ class ApiService {
   final String baseUrl =
       'https://strapi-reco.onrender.com/api/video-cards?populate=*';
 
-  Future<List<VideoCard>> fetchVideoCards() async {
-    final response = await http.get(Uri.parse(baseUrl));
-    //print('Raw API response: ${response.body}');
+  Future<List<VideoCard>> fetchVideoCards(
+      {int page = 1, int limit = 10}) async {
+    // Add pagination parameters to the URL
+    final paginatedUrl =
+        '$baseUrl&pagination[page]=$page&pagination[pageSize]=$limit';
+
+    final response = await http.get(Uri.parse(paginatedUrl));
+
     if (response.statusCode == 200) {
       final decoded = jsonDecode(response.body);
       final List<dynamic> data = decoded['data'];

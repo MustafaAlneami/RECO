@@ -1,11 +1,14 @@
+//
+//
+//
+//
+//this the the neww
+//this the the neww
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:reco_is_here/data/models/strapi_Api_modal.dart';
-import 'package:reco_is_here/data/models/test_Provider_Modal.dart';
 import 'package:reco_is_here/data/models/video_card_model.dart';
 import 'package:reco_is_here/data/models/video_tag_provider.dart';
-import 'package:reco_is_here/data/network/api_service.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/home_content_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -22,31 +25,39 @@ class _HomeView extends State<HomeView> {
     'Vlogs',
     'Entertainment',
     'Coding',
-    'Business'
+    'Business',
+    'Travel' // Added this since your example JSON had "Travel"
   ];
-  late Future<List<VideoCard>> futureCards;
+
   @override
   void initState() {
     super.initState();
-
-    futureCards = ApiService().fetchVideoCards();
-    final tagProvider = Provider.of<VideoTagProvider>(context, listen: false);
-    tagProvider.fetchVideos();
+    // Initialize video fetching
+    Future.microtask(() {
+      Provider.of<VideoTagProvider>(context, listen: false).fetchVideos();
+    });
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 100) {
-        tagProvider.loadMore();
+        Provider.of<VideoTagProvider>(context, listen: false).loadMore();
       }
     });
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //final provyModel = Provider.of<TestProviderModal>(context);
     return Scaffold(
       body: Column(
+        //  physics: const BouncingScrollPhysics(),
         children: [
+          // Tag filtering buttons
           Consumer<VideoTagProvider>(
               builder: (context, videotagProvider, child) {
             return Column(
@@ -76,35 +87,37 @@ class _HomeView extends State<HomeView> {
               ],
             );
           }),
-          //
-          //
-          //
-          // this  is the video  card fetch from the api
-          //
-          //
-          FutureBuilder(
-              future: futureCards,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator(
-                    color: Colors.indigo,
-                  ));
-                } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
-                }
-                final cards = snapshot.data!;
-                final videotagProvider =
-                    Provider.of<VideoTagProvider>(context, listen: false);
+
+          // Videos list
+          Consumer<VideoTagProvider>(
+            builder: (context, videotagProvider, child) {
+              if (videotagProvider.isLoading) {
                 return Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(color: Colors.indigo),
+                  ),
+                );
+              }
+
+              if (videotagProvider.videos.isEmpty) {
+                return Expanded(
+                  child: Center(
+                    child: Text(
+                        "No videos found with tag: ${videotagProvider.selectedTag}"),
+                  ),
+                );
+              }
+
+              return Expanded(
+                child: RefreshIndicator(
+                  onRefresh: () => videotagProvider.refreshVideos(),
                   child: ListView.builder(
                     controller: _scrollController,
                     itemCount: videotagProvider.videos.length +
                         (videotagProvider.isLoadingMore ? 1 : 0),
-                    itemBuilder: (context, indexy) {
-                      final card = cards[indexy];
-                      if (indexy < videotagProvider.videos.length) {
-                        final card = videotagProvider.videos[indexy];
+                    itemBuilder: (context, index) {
+                      if (index < videotagProvider.videos.length) {
+                        final card = videotagProvider.videos[index];
                         return HomeContentView(
                           chanelName: card.chanelName,
                           chanelsTags: card.chanelsTags,
@@ -124,32 +137,13 @@ class _HomeView extends State<HomeView> {
                           padding: EdgeInsets.all(16.0),
                           child: Center(child: CircularProgressIndicator()),
                         );
-                        // return Card(
-                        //   child: ListTile(
-                        //     title: Text(card.chanelName),
-                        //     subtitle: Text('data'),
-                        //     leading: Image.network(card.chanelLogo),
-                        //   ),
-                        // ),
-                        // return HomeContentView(
-                        //   chanelName: card.chanelName,
-                        //   chanelsTags: card.chanelsTags,
-                        //   vidTitle: card.vidTitle,
-                        //   vidDuration: card.vidDuration,
-                        //   vidDate: card.vidDate,
-                        //   vidLink: card.vidLink,
-                        //   vidDescription: card.vidDescription,
-                        //   vidThumbnail: card.vidThumbnail,
-                        //   chanelLogo: card.chanelLogo,
-                        //   channelId: card.channelId,
-                        //   vidId: card.vidId,
-                        //   vidPlatform: card.vidPlatform,
-                        // );
                       }
                     },
                   ),
-                );
-              }),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
