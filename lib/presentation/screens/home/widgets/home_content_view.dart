@@ -68,6 +68,10 @@ class _HomeContentView extends State<HomeContentView> {
                       child: Image.network(
                         widget.vidThumbnail,
                         fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset('images/video-placeholder.png',
+                              fit: BoxFit.fill);
+                        },
                       ),
                     ),
                   ),
@@ -82,6 +86,10 @@ class _HomeContentView extends State<HomeContentView> {
                         child: Image.network(
                           widget.vidPlatform,
                           fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Image.asset('images/image_placeholder.png',
+                                fit: BoxFit.fill);
+                          },
                         ),
                       ),
                     ),
