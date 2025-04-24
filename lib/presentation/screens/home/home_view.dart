@@ -1,8 +1,6 @@
 //this the the neww
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:reco_is_here/data/models/video_card_model.dart';
 import 'package:reco_is_here/data/models/video_tag_provider.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/home_content_view.dart';
 
