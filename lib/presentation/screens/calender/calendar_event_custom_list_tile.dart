@@ -17,7 +17,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
           height: 10,
         ),
         SizedBox(
-          height: 115,
+          height: 105,
           child: Card(
             // elevation: 6,
             margin: EdgeInsets.all(15),
@@ -35,10 +35,33 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                       'Lets Go to the Event',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text('De Musto'),
-                    trailing: Image.asset(
-                      'images/play.png',
-                      fit: BoxFit.fill,
+                    subtitle: Row(
+                      children: [
+                        Text('De Musto'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: 20,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.indigo,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            'New Release',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: Icon(
+                      Icons.play_arrow,
+                      color: Colors.indigo,
+                      size: 35,
                     )),
               ],
             ),
