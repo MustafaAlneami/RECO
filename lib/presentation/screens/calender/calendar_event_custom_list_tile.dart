@@ -17,7 +17,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
           height: 10,
         ),
         SizedBox(
-          height: 105,
+          height: 135,
           child: Card(
             // elevation: 6,
             margin: EdgeInsets.all(15),
@@ -28,41 +28,59 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
             child: Column(
               children: [
                 ListTile(
-                    leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('images/creator3.jpg')),
-                    title: Text(
-                      'Lets Go to the Event',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Row(
-                      children: [
-                        Text('De Musto'),
-                        SizedBox(
-                          width: 10,
+                  leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.asset('images/creator3.jpg')),
+                  title: Text(
+                    'Lets Go to the Event',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Text('De Musto'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        height: 20,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo,
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        Container(
-                          height: 20,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            color: Colors.indigo,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            'New Release',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        child: Text(
+                          'New Release',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  trailing: Icon(
+                    Icons.play_arrow,
+                    color: Colors.indigo,
+                    size: 35,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                  width: 80,
+                  child: Container(
+                    height: 30,
+                    width: 60,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF8BBD0),
+                      borderRadius: BorderRadius.circular(3),
                     ),
-                    trailing: Icon(
-                      Icons.play_arrow,
-                      color: Colors.indigo,
-                      size: 35,
-                    )),
+                    child: Text(
+                      '10:00 AM',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

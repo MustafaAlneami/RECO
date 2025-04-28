@@ -46,6 +46,8 @@ class MainView extends StatelessWidget {
         children: _pages,
       ),
       floatingActionButton: FloatingActionButton(
+        //light pink
+        //pinky colour
         backgroundColor: const Color(0xFFF8BBD0), // light pink
         onPressed: () {
           // Your action here
