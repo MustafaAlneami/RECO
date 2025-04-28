@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CalenderEventCustomlisttile extends StatefulWidget {
   const CalenderEventCustomlisttile({super.key});
@@ -11,6 +12,13 @@ class CalenderEventCustomlisttile extends StatefulWidget {
 
 class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
   late CalendarStrapiEvent calendarStrapiEventPlaceholder;
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,10 +68,13 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                       ),
                     ],
                   ),
-                  trailing: Icon(
-                    Icons.play_arrow,
+                  trailing: IconButton(
+                    icon: Icon(Icons.play_arrow),
                     color: Colors.indigo,
-                    size: 35,
+                    iconSize: 35,
+                    onPressed: () {
+                      _launchURL(calendarStrapiEventPlaceholder.vidUrl);
+                    },
                   ),
                 ),
                 SizedBox(
@@ -79,7 +90,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
-                      calendarStrapiEventPlaceholder.date,
+                      calendarStrapiEventPlaceholder.time,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),

@@ -4,7 +4,7 @@ class CalendarStrapiEvent {
 // It contains all the necessary fields to describe
 // an event, such as title, date, video details, and channel information.
   final String title;
-  final String date;
+  final String time;
 
   final String vidUrl;
   final String vidId;
@@ -15,7 +15,7 @@ class CalendarStrapiEvent {
 
   const CalendarStrapiEvent(this.vidUrl, this.vidId, this.channelName,
       this.channelId, this.channelLogo,
-      {required this.title, required this.date});
+      {required this.title, required this.time});
   // Overrides the default `toString()`
   //method to return the title of the event. when i call print on
   //the calender strapi object
