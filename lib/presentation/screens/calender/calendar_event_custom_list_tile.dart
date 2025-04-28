@@ -17,7 +17,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
           height: 10,
         ),
         SizedBox(
-          height: 135,
+          height: 140,
           child: Card(
             // elevation: 6,
             margin: EdgeInsets.all(15),
@@ -29,7 +29,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
               children: [
                 ListTile(
                   leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(50),
                       child: Image.asset('images/creator3.jpg')),
                   title: Text(
                     'Lets Go to the Event',
@@ -65,11 +65,13 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                 ),
                 SizedBox(
                   height: 30,
-                  width: 80,
+                  width: 200,
                   child: Container(
+                    margin: EdgeInsets.only(top: 5),
                     height: 30,
                     width: 60,
                     decoration: BoxDecoration(
+                      // Pinky
                       color: const Color(0xFFF8BBD0),
                       borderRadius: BorderRadius.circular(3),
                     ),
