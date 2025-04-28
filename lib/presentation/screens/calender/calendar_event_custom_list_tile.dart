@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 
 class CalenderEventCustomlisttile extends StatefulWidget {
   const CalenderEventCustomlisttile({super.key});
@@ -9,6 +10,7 @@ class CalenderEventCustomlisttile extends StatefulWidget {
 }
 
 class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
+  late CalendarStrapiEvent calendarStrapiEventPlaceholder;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,14 +32,15 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                 ListTile(
                   leading: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.asset('images/creator3.jpg')),
+                      child: Image.asset(
+                          calendarStrapiEventPlaceholder.channelLogo)),
                   title: Text(
                     'Lets Go to the Event',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Row(
                     children: [
-                      Text('De Musto'),
+                      Text(calendarStrapiEventPlaceholder.channelName),
                       SizedBox(
                         width: 10,
                       ),
@@ -76,7 +79,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
-                      '10:00 AM',
+                      calendarStrapiEventPlaceholder.date,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
