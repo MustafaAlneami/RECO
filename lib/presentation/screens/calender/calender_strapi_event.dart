@@ -30,7 +30,7 @@ class CalendarStrapiEvent {
       json['channelId'],
       json['channelLogo'],
       title: json['title'],
-      time: json['time'],
+      time: json['Vidtime'],
       date: DateTime.parse(json['date']),
     );
   }

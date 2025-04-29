@@ -35,6 +35,14 @@ class CalendarEventsProvider extends ChangeNotifier {
     return map;
   }
 
+//added this to the provider to use it in event lauder
+  late Map<DateTime, List<VideoCard>> calendarEvents;
+
+  void loadDataFromStrapi(List<VideoCard> data) {
+    calendarEvents = buildEventMap(data);
+    notifyListeners(); // if using Provider
+  }
+
   LinkedHashMap<DateTime, List<Event>> _strapiEvents = LinkedHashMap(
     equals: isSameDay,
     hashCode: getHashCode,
