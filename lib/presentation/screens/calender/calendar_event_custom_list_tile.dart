@@ -3,8 +3,10 @@ import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event
 import 'package:url_launcher/url_launcher.dart';
 
 class CalenderEventCustomlisttile extends StatefulWidget {
+  final CalendarStrapiEvent calendarStrapiEvent;
   const CalenderEventCustomlisttile({
     super.key,
+    required this.calendarStrapiEvent,
   });
 
   @override
@@ -13,7 +15,7 @@ class CalenderEventCustomlisttile extends StatefulWidget {
 }
 
 class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
-  late CalendarStrapiEvent calendarStrapiEventPlaceholder;
+  //late CalendarStrapiEvent calendarStrapiEventPlaceholder;
   Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
@@ -42,15 +44,15 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                 ListTile(
                   leading: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                          calendarStrapiEventPlaceholder.channelLogo)),
+                      child:
+                          Image.asset(widget.calendarStrapiEvent.channelLogo)),
                   title: Text(
                     'Lets Go to the Event',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Row(
                     children: [
-                      Text(calendarStrapiEventPlaceholder.channelName),
+                      Text(widget.calendarStrapiEvent.channelName),
                       SizedBox(
                         width: 10,
                       ),
@@ -75,7 +77,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                     color: Colors.indigo,
                     iconSize: 35,
                     onPressed: () {
-                      _launchURL(calendarStrapiEventPlaceholder.vidUrl);
+                      _launchURL(widget.calendarStrapiEvent.vidUrl);
                     },
                   ),
                 ),
@@ -92,7 +94,7 @@ class _CalenderEventCustomlisttile extends State<CalenderEventCustomlisttile> {
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Text(
-                      calendarStrapiEventPlaceholder.time,
+                      widget.calendarStrapiEvent.time,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),

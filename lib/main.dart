@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reco_is_here/data/models/CalendarEventsProvider%20.dart';
 import 'package:reco_is_here/data/models/test_Provider_Modal.dart';
 import 'package:reco_is_here/data/models/video_tag_provider.dart';
 
@@ -12,6 +13,7 @@ void main() {
       ChangeNotifierProvider(create: (_) => MainViewModel()),
       ChangeNotifierProvider(create: (_) => TestProviderModal()),
       ChangeNotifierProvider(create: (_) => VideoTagProvider()),
+      ChangeNotifierProvider(create: (_) => CalendarEventsProvider()),
     ],
     child: MyApp(),
   ));
