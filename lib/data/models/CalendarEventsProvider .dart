@@ -35,7 +35,7 @@ class CalendarEventsProvider extends ChangeNotifier {
     return map;
   }
 
-//added this to the provider to use it in event lauder
+  //added this to the provider to use it in event lauder
   late Map<DateTime, List<VideoCard>> calendarEvents;
 
   void loadDataFromStrapi(List<VideoCard> data) {
@@ -51,24 +51,36 @@ class CalendarEventsProvider extends ChangeNotifier {
   LinkedHashMap<DateTime, List<Event>> get strapiEvents => _strapiEvents;
 
   Future<void> fetchAndFormatStrapiEvents() async {
-    // 1. Fetch data from Strapi
-    List fetchedData = await ApiService().fetchVideoCards();
-    List<CalendarStrapiEvent> fetchedEvents = fetchedData
-        .map((e) => CalendarStrapiEvent.fromJson(e))
-        .toList(); // You'll need to create this method
+    try {
+      // 1. Fetch data from Strapi
+      List fetchedData = await ApiService().fetchVideoCards();
+      print('Fetched ${fetchedData.length} events from API');
 
-    // 2. Transform and organize into the required format
-    _strapiEvents.clear();
-    for (var strapiEvent in fetchedEvents) {
-      final date = DateTime.utc(
-          strapiEvent.date.year, strapiEvent.date.month, strapiEvent.date.day);
-      if (_strapiEvents.containsKey(date)) {
-        _strapiEvents[date]!.add(
-            Event(strapiEvent.title)); // Assuming your Event class still works
-      } else {
-        _strapiEvents[date] = [Event(strapiEvent.title)];
+      List<CalendarStrapiEvent> fetchedEvents =
+          fetchedData.map((e) => CalendarStrapiEvent.fromJson(e)).toList();
+
+      // 2. Transform and organize into the required format
+      _strapiEvents.clear();
+      for (var strapiEvent in fetchedEvents) {
+        final date = DateTime.utc(strapiEvent.date.year, strapiEvent.date.month,
+            strapiEvent.date.day);
+
+        // Store the actual CalendarStrapiEvent object
+        if (_strapiEvents.containsKey(date)) {
+          _strapiEvents[date]!.add(Event.fromStrapiEvent(strapiEvent));
+        } else {
+          _strapiEvents[date] = [Event.fromStrapiEvent(strapiEvent)];
+        }
       }
+
+      // Debug output to verify events are properly loaded
+      _strapiEvents.forEach((key, value) {
+        print('Date: $key, Events: ${value.length}');
+      });
+
+      notifyListeners();
+    } catch (e) {
+      print('Error fetching events: $e');
     }
-    notifyListeners();
   }
 }

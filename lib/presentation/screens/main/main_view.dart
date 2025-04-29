@@ -11,7 +11,7 @@ class MainView extends StatelessWidget {
 
   final List<Widget> _pages = const [
     HomeView(),
-    CalenderView(),
+    CalendarView(),
     RecoView(),
     SettingView(),
   ];

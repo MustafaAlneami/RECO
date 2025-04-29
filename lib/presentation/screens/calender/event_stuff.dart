@@ -1,15 +1,17 @@
-// Copyright 2019 Aleksander Woźniak
-// SPDX-License-Identifier: Apache-2.0
-
 import 'dart:collection';
-
 import 'package:table_calendar/table_calendar.dart';
+import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 
 /// Example event class.
 class Event {
   final String title;
+  final CalendarStrapiEvent? strapiEvent;
 
-  const Event(this.title);
+  Event(this.title, {this.strapiEvent});
+
+  factory Event.fromStrapiEvent(CalendarStrapiEvent event) {
+    return Event(event.title, strapiEvent: event);
+  }
 
   @override
   String toString() => title;
@@ -23,16 +25,14 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
   hashCode: getHashCode,
 )..addAll(_kEventSource);
 
-final _kEventSource = {
-  for (var item in List.generate(50, (index) => index))
-    DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5): List.generate(
-      item % 4 + 1,
-      (index) => Event('Event $item | ${index + 1}'),
-    ),
-}..addAll({
+final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
+    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
+    value: (item) => List.generate(
+        item % 4 + 1, (index) => Event('Event $item | ${index + 1}')))
+  ..addAll({
     kToday: [
-      const Event("Today's Event 1"),
-      const Event("Today's Event 2"),
+      Event('Today\'s Event 1'),
+      Event('Today\'s Event 2'),
     ],
   });
 

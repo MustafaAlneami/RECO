@@ -4,24 +4,27 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:reco_is_here/data/models/CalendarEventsProvider%20.dart';
-import 'package:reco_is_here/presentation/screens/calender/event_stuff.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
-// adjust path as needed
+import 'package:reco_is_here/data/models/CalendarEventsProvider%20.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-class CalenderView extends StatefulWidget {
-  const CalenderView({super.key});
+import 'package:reco_is_here/presentation/screens/calender/calendar_event_custom_list_tile.dart';
+import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
+import 'package:reco_is_here/presentation/screens/calender/event_stuff.dart';
+
+class CalendarView extends StatefulWidget {
+  const CalendarView({super.key});
 
   @override
-  State<CalenderView> createState() => _CalenderView();
+  State<CalendarView> createState() => _CalendarViewState();
 }
 
-class _CalenderView extends State<CalenderView> {
+class _CalendarViewState extends State<CalendarView> {
   late final ValueNotifier<List<Event>> _selectedEvents;
+
   CalendarFormat _calendarFormat = CalendarFormat.month;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
+  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -30,9 +33,11 @@ class _CalenderView extends State<CalenderView> {
   @override
   void initState() {
     super.initState();
-
     _selectedDay = _focusedDay;
     _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+
+    // Add this line to fetch data when the widget initializes
+    context.read<CalendarEventsProvider>().fetchAndFormatStrapiEvents();
   }
 
   @override
@@ -42,17 +47,15 @@ class _CalenderView extends State<CalenderView> {
   }
 
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
+    final calendarEvents = context.read<CalendarEventsProvider>();
+    return calendarEvents
+            .strapiEvents[DateTime(day.year, day.month, day.day)] ??
+        [];
   }
 
   List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
     final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
+    return [for (final d in days) ..._getEventsForDay(d)];
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -60,11 +63,10 @@ class _CalenderView extends State<CalenderView> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null;
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
-
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
@@ -78,7 +80,6 @@ class _CalenderView extends State<CalenderView> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
     } else if (start != null) {
@@ -88,12 +89,13 @@ class _CalenderView extends State<CalenderView> {
     }
   }
 
-  CalendarEventsProvider calendarEvents = CalendarEventsProvider();
   @override
   Widget build(BuildContext context) {
+    final calendarEvents = context.watch<CalendarEventsProvider>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TableCalendar - Events'),
+        title: const Text('Calendar - Events'),
       ),
       body: Column(
         children: [
@@ -111,10 +113,7 @@ class _CalenderView extends State<CalenderView> {
                     .strapiEvents[DateTime(day.year, day.month, day.day)] ??
                 [],
             startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: const CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
-              outsideDaysVisible: false,
-            ),
+            calendarStyle: const CalendarStyle(outsideDaysVisible: false),
             onDaySelected: _onDaySelected,
             onRangeSelected: _onRangeSelected,
             onFormatChanged: (format) {
@@ -136,20 +135,23 @@ class _CalenderView extends State<CalenderView> {
                 return ListView.builder(
                   itemCount: value.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => print('${value[index]}'),
-                        title: Text('${value[index]}'),
-                      ),
-                    );
+                    final event = value[index];
+                    // Debug print to verify events are present
+                    print('Event at index $index: ${event.toString()}');
+
+                    // Modified list tile rendering logic
+                    if (event.strapiEvent != null) {
+                      return CalenderEventCustomlisttile(
+                        calendarStrapiEvent: event.strapiEvent!,
+                      );
+                    } else {
+                      return ListTile(
+                        title: Text(event.toString()),
+                        // Add some visual feedback to show events are loading
+                        subtitle: Text('Event details'),
+                        leading: Icon(Icons.event),
+                      );
+                    }
                   },
                 );
               },
@@ -160,99 +162,3 @@ class _CalenderView extends State<CalenderView> {
     );
   }
 }
-
-// // TODO Implement this library.
-// import 'dart:collection';
-
-// import 'package:flutter/material.dart';
-// import 'package:reco_is_here/presentation/screens/calender/event_stuff.dart';
-// import 'package:table_calendar/table_calendar.dart';
-// import 'package:url_launcher/url_launcher.dart';
-
-// class CalenderView extends StatefulWidget {
-//   const CalenderView({super.key});
-
-//   @override
-//   State<CalenderView> createState() => _CalenderView();
-// }
-
-// class _CalenderView extends State<CalenderView> {
-//   CalendarFormat _calendarFormat = CalendarFormat.month;
-//   DateTime _focusedDay = DateTime.now();
-//   DateTime? _selectedDay;
-//   late final LinkedHashMap<DateTime, List<Event>> events;
-//   List<Event> _getEventsForDay(DateTime day) {
-//     return events[day] ?? [];
-//   }
-
-//   final Map<DateTime, List<Event>> eventSource = {
-//     DateTime.now(): [Event('Sample Event')],
-//   };
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     events = LinkedHashMap(
-//       equals: isSameDay,
-//       hashCode: getHashCode,
-//     )..addAll(eventSource);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         TableCalendar(
-//           firstDay: DateTime.utc(2010, 10, 16),
-//           lastDay: DateTime.utc(2030, 3, 14),
-//           focusedDay: DateTime.now(),
-//           //Adding the following code to the calendar widget
-//           // will allow it to respond to user's taps,
-//           //marking the tapped day as selected:
-//           selectedDayPredicate: (day) {
-//             // Use `selectedDayPredicate` to determine which day is currently selected.
-//             // If this returns true, then `day` will be marked as selected.
-
-//             // Using `isSameDay` is recommended to disregard
-//             // the time-part of compared DateTime objects.
-//             return isSameDay(_selectedDay, day);
-//           },
-//           onDaySelected: (selectedDay, focusedDay) {
-//             if (!isSameDay(_selectedDay, selectedDay)) {
-//               // Call `setState()` when updating the selected day
-//               setState(() {
-//                 _selectedDay = selectedDay;
-//                 _focusedDay = focusedDay;
-//               });
-//             }
-//           },
-//           //In order to dynamically update visible calendar format,
-//           //add those lines to the widget:
-//           calendarFormat: _calendarFormat,
-//           onFormatChanged: (format) {
-//             setState(() {
-//               _calendarFormat = format;
-//             });
-//           },
-//           //Add this one callback to complete the basic setup:
-//           // onPageChanged: (focusedDay) {
-//           //   _focusedDay = focusedDay;
-//           // },
-//           // eventLoader: (day) {
-//           //   // Return a list of events for the given day
-//           //   return [
-//           //     'Event 1',
-//           //     'Event 2',
-//           //     'Event 3',
-//           //   ];
-//           // },
-
-//           // Add this to make the calendar responsive to taps
-//           eventLoader: (day) {
-//             return _getEventsForDay(day);
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }
