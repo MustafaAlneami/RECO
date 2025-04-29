@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:reco_is_here/presentation/screens/calender/calendar_event_custom_list_tile.dart';
-import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 
 class SettingView extends StatefulWidget {
   const SettingView({super.key});
