@@ -4,8 +4,11 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:reco_is_here/data/models/CalendarEventsProvider%20.dart';
 import 'package:reco_is_here/presentation/screens/calender/event_stuff.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:provider/provider.dart';
+// adjust path as needed
 
 class CalenderView extends StatefulWidget {
   const CalenderView({super.key});
@@ -102,7 +105,11 @@ class _CalenderView extends State<CalenderView> {
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
+            eventLoader: (day) {
+              final strapiEvents =
+                  context.watch<CalendarEventsProvider>().strapiEvents;
+              return strapiEvents[day] ?? [];
+            },
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: const CalendarStyle(
               // Use `CalendarStyle` to customize the UI

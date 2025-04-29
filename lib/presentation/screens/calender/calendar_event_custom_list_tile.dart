@@ -3,7 +3,9 @@ import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event
 import 'package:url_launcher/url_launcher.dart';
 
 class CalenderEventCustomlisttile extends StatefulWidget {
-  const CalenderEventCustomlisttile({super.key});
+  const CalenderEventCustomlisttile({
+    super.key,
+  });
 
   @override
   State<CalenderEventCustomlisttile> createState() =>
