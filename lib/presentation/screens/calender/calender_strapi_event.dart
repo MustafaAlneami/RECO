@@ -7,6 +7,9 @@ class CalendarStrapiEvent {
   final String channelId;
   final String channelLogo;
   final DateTime date;
+  // DateTime parseDateString(String dateString) {
+  //   return DateFormat('dd/MM/yyyy').parse(dateString);
+  // }
 
   const CalendarStrapiEvent(
     this.vidUrl,

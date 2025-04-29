@@ -1,6 +1,8 @@
 // In your provider (e.g., CalendarEventsProvider)
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:reco_is_here/data/models/video_card_model.dart';
 import 'package:reco_is_here/data/network/api_service.dart';
 import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 import 'package:reco_is_here/presentation/screens/calender/event_stuff.dart';
@@ -9,6 +11,30 @@ import 'package:table_calendar/table_calendar.dart';
 // Import your CalendarStrapiEvent model and API service
 
 class CalendarEventsProvider extends ChangeNotifier {
+  DateTime parseVidDate(String dateStr) {
+    // Converts "24/12/2025" into a DateTime object
+    return DateFormat('dd/MM/yyyy').parse(dateStr);
+  }
+
+  Map<DateTime, List<VideoCard>> buildEventMap(List<VideoCard> videos) {
+    final Map<DateTime, List<VideoCard>> map = {};
+
+    for (var video in videos) {
+      final DateTime date = parseVidDate(video.vidDate);
+
+      final DateTime key =
+          DateTime(date.year, date.month, date.day); // Normalize
+
+      if (map[key] == null) {
+        map[key] = [video];
+      } else {
+        map[key]!.add(video);
+      }
+    }
+
+    return map;
+  }
+
   LinkedHashMap<DateTime, List<Event>> _strapiEvents = LinkedHashMap(
     equals: isSameDay,
     hashCode: getHashCode,

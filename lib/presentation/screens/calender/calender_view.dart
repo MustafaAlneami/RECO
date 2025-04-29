@@ -88,6 +88,7 @@ class _CalenderView extends State<CalenderView> {
     }
   }
 
+  CalendarEventsProvider calendarEvents = CalendarEventsProvider();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,11 +106,10 @@ class _CalenderView extends State<CalenderView> {
             rangeEndDay: _rangeEnd,
             calendarFormat: _calendarFormat,
             rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: (day) {
-              final strapiEvents =
-                  context.watch<CalendarEventsProvider>().strapiEvents;
-              return strapiEvents[day] ?? [];
-            },
+            eventLoader: (day) =>
+                calendarEvents
+                    .strapiEvents[DateTime(day.year, day.month, day.day)] ??
+                [],
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: const CalendarStyle(
               // Use `CalendarStyle` to customize the UI

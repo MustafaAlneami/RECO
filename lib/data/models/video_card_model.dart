@@ -14,8 +14,10 @@ class VideoCard {
   final String vidLink;
   final String vidDescription;
   final String vidPlatform;
+  final String vidTime; // ✅ This is now a string
 
-  const VideoCard({
+  const VideoCard(
+    this.vidTime, {
     required this.chanelName,
     required this.chanelLogo,
     required this.chanelsTags,
@@ -32,6 +34,7 @@ class VideoCard {
 
   factory VideoCard.fromJson(Map<String, dynamic> json) {
     return VideoCard(
+      json['vidTime'] ?? '', // Positional argument for vidTime
       chanelName: json['chanelName'] ?? '',
       chanelLogo: json['chanelLogo'] ?? '', // Direct string
       chanelsTags: json['chanelsTags'] ?? '',
@@ -43,7 +46,7 @@ class VideoCard {
       vidThumbnail: json['vidThumbnail'] ?? '', // ✅ Now it's a string
       vidLink: json['vidLink'] ?? '',
       vidDescription: json['vidDescription'] ?? '',
-      vidPlatform: json['vidPlatform'] ?? '', // ✅ This too
+      vidPlatform: json['vidPlatform'] ?? '',
     );
   }
 }
