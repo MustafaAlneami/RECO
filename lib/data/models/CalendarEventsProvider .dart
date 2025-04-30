@@ -1,4 +1,3 @@
-// import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:reco_is_here/data/network/api_service.dart';
@@ -8,7 +7,6 @@ import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEventsProvider extends ChangeNotifier {
-  // Map to store events by date
   LinkedHashMap<DateTime, List<Event>> _strapiEvents = LinkedHashMap(
     equals: isSameDay,
     hashCode: getHashCode,
@@ -16,35 +14,54 @@ class CalendarEventsProvider extends ChangeNotifier {
 
   LinkedHashMap<DateTime, List<Event>> get strapiEvents => _strapiEvents;
 
-  // Flag to track if data has been loaded
   bool _isLoaded = false;
   bool get isLoaded => _isLoaded;
 
-  // Flag to track if loading is in progress
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  // Error message
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  // API service
   final ApiService _apiService = ApiService();
 
-  // Constructor
-  CalendarEventsProvider() {
-    // Initialize empty at first
+  CalendarEventsProvider();
+
+  /// 🔁 Normalize date to ensure consistent day-only keys
+  DateTime _normalizeDate(DateTime date) {
+    return DateTime(date.year, date.month, date.day);
   }
 
-  // Method to get events for a specific day
   List<Event> getEventsForDay(DateTime day) {
-    // Find events for the given day
-    final normalizedDay = DateTime.utc(day.year, day.month, day.day);
+    final normalizedDay = _normalizeDate(day);
+    print('Looking for events on: ${day.toIso8601String()}');
+    print('Available keys:');
+    _strapiEvents.forEach((key, value) {
+      print(' -> ${key.toIso8601String()} has ${value.length} events');
+    });
+
     return _strapiEvents[normalizedDay] ?? [];
   }
 
   Future<void> fetchAndFormatStrapiEvents() async {
-    if (_isLoading) return; // Prevent multiple simultaneous calls
+    CalendarStrapiEvent calendarStrapiEvent = CalendarStrapiEvent(
+      id: 0,
+      title: 'Default Event',
+      description: 'Default Description',
+      date: DateTime.now(),
+      time: '00:00',
+      duration: '0:00',
+      thumbnail: '',
+      videoLink: '',
+      platform: 'Default',
+      channelName: 'Default Channel',
+      channelLogo: '',
+      channelTags: '',
+      channelId: 0,
+    );
+    print('Parsed date: ${calendarStrapiEvent.date.toIso8601String()}');
+
+    if (_isLoading) return;
 
     _isLoading = true;
     _errorMessage = null;
@@ -52,22 +69,15 @@ class CalendarEventsProvider extends ChangeNotifier {
 
     try {
       print('Fetching events from API...');
-
-      // 1. Fetch data from Strapi
       List fetchedData = await _apiService.fetchVideoCards();
       print('Fetched ${fetchedData.length} events from API');
 
-      // Create a new hash map for events
       final newEvents = LinkedHashMap<DateTime, List<Event>>(
         equals: isSameDay,
         hashCode: getHashCode,
       );
 
-      // Debug: Print first event to verify structure
-      if (fetchedData.isNotEmpty) {
-        print('First event data: ${fetchedData.first}');
-      } else {
-        print('No events fetched');
+      if (fetchedData.isEmpty) {
         _errorMessage = 'No events available from the API';
         _isLoading = false;
         _isLoaded = true;
@@ -75,23 +85,15 @@ class CalendarEventsProvider extends ChangeNotifier {
         return;
       }
 
-      // Process each fetched event
       for (var item in fetchedData) {
         try {
-          // Create CalendarStrapiEvent object
           CalendarStrapiEvent strapiEvent = CalendarStrapiEvent.fromJson(item);
-
-          // Create Event object from CalendarStrapiEvent
           Event event = Event.fromStrapiEvent(strapiEvent);
-
-          // Create date key with just year, month, day (no time)
-          final dateKey = DateTime.utc(strapiEvent.date.year,
-              strapiEvent.date.month, strapiEvent.date.day);
+          final dateKey = _normalizeDate(strapiEvent.date.toLocal());
 
           print(
               'Mapping event "${strapiEvent.title}" to date: ${DateFormat('yyyy-MM-dd').format(dateKey)}');
 
-          // Add event to the appropriate date
           if (newEvents.containsKey(dateKey)) {
             newEvents[dateKey]!.add(event);
           } else {
@@ -99,35 +101,19 @@ class CalendarEventsProvider extends ChangeNotifier {
           }
         } catch (e) {
           print('Error processing individual event: $e');
-          // Continue processing other events
         }
       }
 
-      // If no events were successfully added, create a test event
       if (newEvents.isEmpty) {
         print('No events were successfully mapped. Adding test event.');
-
-        // Check if we have a test date "4/4/2025" in the data
         bool hasTestDate = fetchedData.any((item) =>
             item['vidDate'] == '4/4/2025' ||
             item['vidDate']?.toString().contains('4/4/2025') == true);
 
-        DateTime eventDate;
-        if (hasTestDate) {
-          // Use the test date
-          eventDate = DateTime(2025, 4, 4);
-          print('Using test date: 4/4/2025');
-        } else {
-          // Fall back to today
-          eventDate = DateTime.now();
-          print('Falling back to today\'s date');
-        }
+        DateTime eventDate =
+            hasTestDate ? DateTime(2025, 4, 4) : DateTime.now();
+        final dateKey = _normalizeDate(eventDate);
 
-        // Create a date key
-        final dateKey =
-            DateTime.utc(eventDate.year, eventDate.month, eventDate.day);
-
-        // Create a test event using data from the first item if available
         Map<String, dynamic> testData = fetchedData.isNotEmpty
             ? fetchedData.first
             : {
@@ -143,29 +129,17 @@ class CalendarEventsProvider extends ChangeNotifier {
                 'chanelLogo': '',
                 'chanelsTags': '',
                 'channelId': 0,
+                'vidDate': DateFormat('M/d/yyyy').format(eventDate),
               };
 
-        // Override the date
-        testData['vidDate'] = DateFormat('M/d/yyyy').format(eventDate);
-
-        // Create a CalendarStrapiEvent
         CalendarStrapiEvent testStrapiEvent =
             CalendarStrapiEvent.fromJson(testData);
-
-        // Create an Event
         Event testEvent = Event.fromStrapiEvent(testStrapiEvent);
-
-        // Add to the events map
         newEvents[dateKey] = [testEvent];
-
-        print(
-            'Added test event for ${DateFormat('yyyy-MM-dd').format(dateKey)}');
       }
 
-      // Update the events map
       _strapiEvents = newEvents;
 
-      // Debug output
       print('Events mapped successfully:');
       _strapiEvents.forEach((date, events) {
         print(
@@ -179,14 +153,12 @@ class CalendarEventsProvider extends ChangeNotifier {
       print('Error in fetchAndFormatStrapiEvents: $e');
       _errorMessage = 'Error fetching events: $e';
 
-      // Add a test event for today
       DateTime today = DateTime.now();
-      final dateKey = DateTime.utc(today.year, today.month, today.day);
+      final dateKey = _normalizeDate(today);
 
-      // Create a test event
       CalendarStrapiEvent testEvent = CalendarStrapiEvent(
         id: 999,
-        title: 'Calendar Test Event',
+        title: 'Test Event here',
         description: 'This event was added during error recovery',
         date: today,
         time: '12:00',
@@ -200,7 +172,6 @@ class CalendarEventsProvider extends ChangeNotifier {
         channelId: 0,
       );
 
-      // Add to the events map
       _strapiEvents[dateKey] = [Event.fromStrapiEvent(testEvent)];
 
       _isLoading = false;
@@ -209,9 +180,8 @@ class CalendarEventsProvider extends ChangeNotifier {
     }
   }
 
-  // Helper method to add a test event for debugging
   void addTestEvent(DateTime date) {
-    final dateKey = DateTime.utc(date.year, date.month, date.day);
+    final dateKey = _normalizeDate(date);
 
     CalendarStrapiEvent testEvent = CalendarStrapiEvent(
       id: 12345,
@@ -238,7 +208,6 @@ class CalendarEventsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Clear all events
   void clearEvents() {
     _strapiEvents.clear();
     _isLoaded = false;
