@@ -1,54 +1,85 @@
-import 'dart:collection';
-import 'package:table_calendar/table_calendar.dart';
+// // This file should be saved as event_stuff.dart
+
+import 'package:flutter/material.dart';
 import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 
-/// Example event class.
+// Function to get event hashcode for LinkedHashMap
+int getHashCode(DateTime key) {
+  return key.day * 1000000 + key.month * 10000 + key.year;
+}
+
+// Event class for calendar
 class Event {
   final String title;
   final CalendarStrapiEvent? strapiEvent;
 
   Event(this.title, {this.strapiEvent});
 
+  // Factory constructor to create Event from CalendarStrapiEvent
   factory Event.fromStrapiEvent(CalendarStrapiEvent event) {
-    return Event(event.title, strapiEvent: event);
+    return Event(
+      event.title,
+      strapiEvent: event,
+    );
   }
 
   @override
   String toString() => title;
 }
 
-/// Example events.
-///
-/// Using a [LinkedHashMap] is highly recommended if you decide to use a map.
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
+// Calendar event card to display events in a list
+class CalendarEventCard extends StatelessWidget {
+  final Event event;
 
-final _kEventSource = Map.fromIterable(List.generate(50, (index) => index),
-    key: (item) => DateTime.utc(kFirstDay.year, kFirstDay.month, item * 5),
-    value: (item) => List.generate(
-        item % 4 + 1, (index) => Event('Event $item | ${index + 1}')))
-  ..addAll({
-    kToday: [
-      Event('Today\'s Event 1'),
-      Event('Today\'s Event 2'),
-    ],
-  });
+  const CalendarEventCard({Key? key, required this.event}) : super(key: key);
 
-int getHashCode(DateTime key) {
-  return key.day * 1000000 + key.month * 10000 + key.year;
+  @override
+  Widget build(BuildContext context) {
+    final strapiEvent = event.strapiEvent;
+
+    if (strapiEvent == null) {
+      return ListTile(
+        title: Text(event.title),
+        subtitle: Text('No details available'),
+      );
+    }
+
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      child: ListTile(
+        leading: strapiEvent.thumbnail.isNotEmpty
+            ? Image.network(
+                strapiEvent.thumbnail,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.event, size: 50),
+              )
+            : const Icon(Icons.event, size: 50),
+        title: Text(
+          strapiEvent.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Time: ${strapiEvent.time}'),
+            Text('Duration: ${strapiEvent.duration}'),
+            Text('Platform: ${strapiEvent.platform}'),
+            Text('Channel: ${strapiEvent.channelName}'),
+          ],
+        ),
+        isThreeLine: true,
+        onTap: () {
+          // Show detailed view or navigate to video
+          if (strapiEvent.videoLink.isNotEmpty) {
+            // You could open the video link here
+            // For example: launchUrl(Uri.parse(strapiEvent.videoLink));
+            print('Video link tapped: ${strapiEvent.videoLink}');
+          }
+        },
+      ),
+    );
+  }
 }
-
-/// Returns a list of [DateTime] objects from [first] to [last], inclusive.
-List<DateTime> daysInRange(DateTime first, DateTime last) {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
-}
-
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
