@@ -1,58 +1,65 @@
 import 'package:intl/intl.dart';
 
 class CalendarStrapiEvent {
-  final int id;
-  final String title;
-  final String description;
-  final DateTime date;
-  final String time;
-  final String duration;
-  final String thumbnail;
-  final String videoLink;
-  final String platform;
-  final String channelName;
-  final String channelLogo;
-  final String channelTags;
+  // Channel properties
+  final String chanelName;
+  final String chanelLogo;
+  final String chanelsTags;
   final int channelId;
 
-  CalendarStrapiEvent({
-    required this.id,
-    required this.title,
-    required this.description,
-    required this.date,
-    required this.time,
-    required this.duration,
-    required this.thumbnail,
-    required this.videoLink,
-    required this.platform,
-    required this.channelName,
-    required this.channelLogo,
-    required this.channelTags,
+  // Video properties
+  final String vidTitle;
+  final int vidId;
+  final String vidDuration;
+  final String vidDate;
+  final String vidThumbnail;
+  final String vidLink;
+  final String vidDescription;
+  final String vidPlatform;
+  final String vidTime;
+
+  // Computed date for calendar use
+  final DateTime eventDate;
+
+  CalendarStrapiEvent(
+    this.vidTime, {
+    required this.chanelName,
+    required this.chanelLogo,
+    required this.chanelsTags,
     required this.channelId,
+    required this.vidTitle,
+    required this.vidId,
+    required this.vidDuration,
+    required this.vidDate,
+    required this.vidThumbnail,
+    required this.vidLink,
+    required this.vidDescription,
+    required this.vidPlatform,
+    required this.eventDate,
   });
 
   factory CalendarStrapiEvent.fromJson(Map<String, dynamic> json) {
-    final rawDate = json['vidDate'];
-    final parsedDate = rawDate is String ? _parseDate(rawDate) : DateTime.now();
+    final rawDate = json['vidDate'] ?? '';
+    final parsedDate = _parseDate(rawDate);
 
     return CalendarStrapiEvent(
-      id: json['vidId'] ?? 0,
-      title: json['vidTitle'] ?? '',
-      description: json['vidDescription'] ?? '',
-      date: parsedDate.toLocal(),
-      time: json['vidTime'] ?? '',
-      duration: json['vidDuration'] ?? '',
-      thumbnail: json['vidThumbnail'] ?? '',
-      videoLink: json['vidLink'] ?? '',
-      platform: json['vidPlatform'] ?? '',
-      channelName: json['chanelName'] ?? '',
-      channelLogo: json['chanelLogo'] ?? '',
-      channelTags: json['chanelsTags'] ?? '',
-      channelId: json['channelId'] ?? 0,
+      json['vidTime'] ?? '',
+      chanelName: json['chanelName'] ?? '',
+      chanelLogo: json['chanelLogo'] ?? '',
+      chanelsTags: json['chanelsTags'] ?? '',
+      channelId: int.tryParse(json['channelId']?.toString() ?? '0') ?? 0,
+      vidTitle: json['vidTitle'] ?? 'still getting data',
+      vidId: int.tryParse(json['vidId']?.toString() ?? '0') ?? 0,
+      vidDuration: json['vidDuration'] ?? '',
+      vidDate: rawDate,
+      vidThumbnail: json['vidThumbnail'] ?? '',
+      vidLink: json['vidLink'] ?? '',
+      vidDescription: json['vidDescription'] ?? '',
+      vidPlatform: json['vidPlatform'] ?? '',
+      eventDate: parsedDate,
     );
   }
 
-  // Helper method to parse date with multiple format attempts
   static DateTime _parseDate(String dateStr) {
     final formatPatterns = [
       'M/d/yyyy',
@@ -63,37 +70,32 @@ class CalendarStrapiEvent {
       'yyyy/MM/dd',
     ];
 
-    for (String pattern in formatPatterns) {
+    for (final pattern in formatPatterns) {
       try {
-        return DateFormat(pattern).parse(dateStr);
+        return DateFormat(pattern).parseStrict(dateStr);
       } catch (_) {}
     }
 
     if (dateStr.contains('/')) {
-      List<String> parts = dateStr.split('/');
+      final parts = dateStr.split('/');
       if (parts.length == 3) {
         try {
-          int month = int.parse(parts[0]);
-          int day = int.parse(parts[1]);
-          int year = int.parse(parts[2]);
+          int part1 = int.parse(parts[0]);
+          int part2 = int.parse(parts[1]);
+          int part3 = int.parse(parts[2]);
 
-          if (month >= 1 && month <= 12 && day >= 1 && day <= 31) {
-            return DateTime(year, month, day);
+          // Try MM/DD/YYYY
+          if (part1 <= 12 && part2 <= 31) {
+            return DateTime(part3, part1, part2);
           }
-
-          if (parts[0].length <= 2 &&
-              int.parse(parts[0]) <= 31 &&
-              parts[1].length <= 2 &&
-              int.parse(parts[1]) <= 12) {
-            day = int.parse(parts[0]);
-            month = int.parse(parts[1]);
-            year = int.parse(parts[2]);
-            return DateTime(year, month, day);
+          // Try DD/MM/YYYY
+          if (part1 <= 31 && part2 <= 12) {
+            return DateTime(part3, part2, part1);
           }
         } catch (_) {}
       }
     }
 
-    return DateTime.now();
+    return DateTime.now(); // fallback
   }
 }

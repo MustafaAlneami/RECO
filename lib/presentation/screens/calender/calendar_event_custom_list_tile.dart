@@ -16,32 +16,32 @@ class CalenderEventCustomlisttile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundImage: calendarStrapiEvent.channelLogo.isNotEmpty
-              ? NetworkImage(calendarStrapiEvent.channelLogo)
+          backgroundImage: calendarStrapiEvent.chanelLogo.isNotEmpty
+              ? NetworkImage(calendarStrapiEvent.chanelLogo)
               : null,
-          child: calendarStrapiEvent.channelLogo.isEmpty
+          child: calendarStrapiEvent.chanelLogo.isEmpty
               ? Icon(Icons.video_library)
               : null,
         ),
         title: Text(
-          calendarStrapiEvent.title,
+          calendarStrapiEvent.vidTitle,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Time: ${calendarStrapiEvent.time}'),
-            Text('Channel: ${calendarStrapiEvent.channelName}'),
+            Text('Time: ${calendarStrapiEvent.vidTime}'),
+            Text('Channel: ${calendarStrapiEvent.chanelName}'),
             Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(calendarStrapiEvent.date)}'),
+                'Date: ${DateFormat('yyyy-MM-dd').format(calendarStrapiEvent.vidDate as DateTime)}'),
           ],
         ),
         isThreeLine: true,
         onTap: () {
           // Handle event tap - maybe open the video URL
-          if (calendarStrapiEvent.videoLink.isNotEmpty) {
+          if (calendarStrapiEvent.vidLink.isNotEmpty) {
             // Navigate to video or open URL
-            print('Opening video: ${calendarStrapiEvent.videoLink}');
+            print('Opening video: ${calendarStrapiEvent.vidLink}');
             // You could add navigation or URL launching here
           }
         },

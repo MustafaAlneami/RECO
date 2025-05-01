@@ -18,7 +18,7 @@ class Event {
   // Factory constructor to create Event from CalendarStrapiEvent
   factory Event.fromStrapiEvent(CalendarStrapiEvent event) {
     return Event(
-      event.title,
+      event.vidTitle,
       strapiEvent: event,
     );
   }
@@ -47,9 +47,9 @@ class CalendarEventCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: ListTile(
-        leading: strapiEvent.thumbnail.isNotEmpty
+        leading: strapiEvent.vidThumbnail.isNotEmpty
             ? Image.network(
-                strapiEvent.thumbnail,
+                strapiEvent.vidThumbnail,
                 width: 50,
                 height: 50,
                 fit: BoxFit.cover,
@@ -58,25 +58,25 @@ class CalendarEventCard extends StatelessWidget {
               )
             : const Icon(Icons.event, size: 50),
         title: Text(
-          strapiEvent.title,
+          strapiEvent.vidTitle,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Time: ${strapiEvent.time}'),
-            Text('Duration: ${strapiEvent.duration}'),
-            Text('Platform: ${strapiEvent.platform}'),
-            Text('Channel: ${strapiEvent.channelName}'),
+            Text('Time: ${strapiEvent.vidTime}'),
+            Text('Duration: ${strapiEvent.vidDuration}'),
+            Text('Platform: ${strapiEvent.vidPlatform}'),
+            Text('Channel: ${strapiEvent.chanelName}'),
           ],
         ),
         isThreeLine: true,
         onTap: () {
           // Show detailed view or navigate to video
-          if (strapiEvent.videoLink.isNotEmpty) {
+          if (strapiEvent.vidLink.isNotEmpty) {
             // You could open the video link here
             // For example: launchUrl(Uri.parse(strapiEvent.videoLink));
-            print('Video link tapped: ${strapiEvent.videoLink}');
+            print('Video link tapped: ${strapiEvent.vidLink}');
           }
         },
       ),
