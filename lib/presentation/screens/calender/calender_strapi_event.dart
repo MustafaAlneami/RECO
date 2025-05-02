@@ -1,101 +1,116 @@
+// // lib/presentation/screens/calender/calender_strapi_event.dart
+
 import 'package:intl/intl.dart';
 
 class CalendarStrapiEvent {
-  // Channel properties
+  final int vidId;
+  final String vidTitle;
+  final String vidDescription;
+  final String vidTime;
+  final String vidDuration;
+  final String vidPlatform;
+  final String vidLink;
+  final String vidThumbnail;
   final String chanelName;
   final String chanelLogo;
   final String chanelsTags;
   final int channelId;
-
-  // Video properties
-  final String vidTitle;
-  final int vidId;
-  final String vidDuration;
-  final String vidDate;
-  final String vidThumbnail;
-  final String vidLink;
-  final String vidDescription;
-  final String vidPlatform;
-  final String vidTime;
-
-  // Computed date for calendar use
   final DateTime eventDate;
 
-  CalendarStrapiEvent(
-    this.vidTime, {
+  CalendarStrapiEvent({
+    required this.vidId,
+    required this.vidTitle,
+    required this.vidDescription,
+    required this.vidTime,
+    required this.vidDuration,
+    required this.vidPlatform,
+    required this.vidLink,
+    required this.vidThumbnail,
     required this.chanelName,
     required this.chanelLogo,
     required this.chanelsTags,
     required this.channelId,
-    required this.vidTitle,
-    required this.vidId,
-    required this.vidDuration,
-    required this.vidDate,
-    required this.vidThumbnail,
-    required this.vidLink,
-    required this.vidDescription,
-    required this.vidPlatform,
     required this.eventDate,
   });
 
   factory CalendarStrapiEvent.fromJson(Map<String, dynamic> json) {
-    final rawDate = json['vidDate'] ?? '';
-    final parsedDate = _parseDate(rawDate);
+    print('\n=== Parsing event: ${json['vidTitle']} ===');
 
-    return CalendarStrapiEvent(
-      json['vidTime'] ?? '',
-      chanelName: json['chanelName'] ?? '',
-      chanelLogo: json['chanelLogo'] ?? '',
-      chanelsTags: json['chanelsTags'] ?? '',
-      channelId: int.tryParse(json['channelId']?.toString() ?? '0') ?? 0,
-      vidTitle: json['vidTitle'] ?? 'still getting data',
-      vidId: int.tryParse(json['vidId']?.toString() ?? '0') ?? 0,
-      vidDuration: json['vidDuration'] ?? '',
-      vidDate: rawDate,
-      vidThumbnail: json['vidThumbnail'] ?? '',
-      vidLink: json['vidLink'] ?? '',
-      vidDescription: json['vidDescription'] ?? '',
-      vidPlatform: json['vidPlatform'] ?? '',
-      eventDate: parsedDate,
-    );
-  }
+    // Get the raw date string
+    final raw = json['vidDate']?.toString() ?? '';
+    print('Raw date string: "$raw"');
 
-  static DateTime _parseDate(String dateStr) {
-    final formatPatterns = [
-      'M/d/yyyy',
-      'MM/dd/yyyy',
-      'yyyy-MM-dd',
-      'd/M/yyyy',
-      'dd/MM/yyyy',
-      'yyyy/MM/dd',
-    ];
+    DateTime parsed = DateTime.now(); // Initialize with current date
+    bool parseSuccess = false;
 
-    for (final pattern in formatPatterns) {
-      try {
-        return DateFormat(pattern).parseStrict(dateStr);
-      } catch (_) {}
+    // Try different date formats
+    try {
+      // 1) Try ISO-8601 format (e.g. '2025-05-21T00:00:00.000Z')
+      parsed = DateTime.parse(raw);
+      print('✅ Successfully parsed as ISO-8601: ${parsed.toIso8601String()}');
+      parseSuccess = true;
+    } catch (e) {
+      print('❌ Failed to parse as ISO-8601: $e');
     }
 
-    if (dateStr.contains('/')) {
-      final parts = dateStr.split('/');
-      if (parts.length == 3) {
-        try {
-          int part1 = int.parse(parts[0]);
-          int part2 = int.parse(parts[1]);
-          int part3 = int.parse(parts[2]);
-
-          // Try MM/DD/YYYY
-          if (part1 <= 12 && part2 <= 31) {
-            return DateTime(part3, part1, part2);
-          }
-          // Try DD/MM/YYYY
-          if (part1 <= 31 && part2 <= 12) {
-            return DateTime(part3, part2, part1);
-          }
-        } catch (_) {}
+    if (!parseSuccess) {
+      try {
+        // 2) Try 'yyyy-MM-dd' format (e.g. '2025-05-17')
+        parsed = DateFormat('yyyy-MM-dd').parse(raw);
+        print(
+            '✅ Successfully parsed as yyyy-MM-dd: ${parsed.toIso8601String()}');
+        parseSuccess = true;
+      } catch (e) {
+        print('❌ Failed to parse as yyyy-MM-dd: $e');
       }
     }
 
-    return DateTime.now(); // fallback
+    if (!parseSuccess) {
+      try {
+        // 3) Try 'yyyy, M, d' format (e.g. '2025, 5, 5')
+        parsed = DateFormat('yyyy, M, d').parse(raw);
+        print(
+            '✅ Successfully parsed as yyyy, M, d: ${parsed.toIso8601String()}');
+        parseSuccess = true;
+      } catch (e) {
+        print('❌ Failed to parse as yyyy, M, d: $e');
+      }
+    }
+
+    if (!parseSuccess) {
+      try {
+        // 4) Try 'M/d/yyyy' format (e.g. '4/4/2025')
+        parsed = DateFormat('M/d/yyyy').parse(raw);
+        print('✅ Successfully parsed as M/d/yyyy: ${parsed.toIso8601String()}');
+        parseSuccess = true;
+      } catch (e) {
+        print('❌ Failed to parse as M/d/yyyy: $e');
+      }
+    }
+
+    if (!parseSuccess) {
+      print('❌ All date parsing attempts failed, using current date');
+    }
+
+    // Normalize the date to remove time component
+    parsed = DateTime(parsed.year, parsed.month, parsed.day);
+    print('Final normalized date: ${parsed.toIso8601String()}');
+    print('==========================================\n');
+
+    return CalendarStrapiEvent(
+      vidId: json['vidId'] as int? ?? 0,
+      vidTitle: json['vidTitle'] as String? ?? '',
+      vidDescription: json['vidDescription'] as String? ?? '',
+      vidTime: json['vidTime'] as String? ?? '',
+      vidDuration: json['vidDuration'] as String? ?? '',
+      vidPlatform: json['vidPlatform'] as String? ?? '',
+      vidLink: json['vidLink'] as String? ?? '',
+      vidThumbnail: json['vidThumbnail'] as String? ?? '',
+      chanelName: json['chanelName'] as String? ?? '',
+      chanelLogo: json['chanelLogo'] as String? ?? '',
+      chanelsTags: json['chanelsTags'] as String? ?? '',
+      channelId: json['channelId'] as int? ?? 0,
+      eventDate: parsed,
+    );
   }
 }

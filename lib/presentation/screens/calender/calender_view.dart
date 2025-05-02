@@ -77,12 +77,7 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
           // Debug action to add test event for the selected day
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {
-              final eventsProvider =
-                  Provider.of<CalendarEventsProvider>(context, listen: false);
-              eventsProvider.addTestEvent(_selectedDay);
-              _selectedEvents.value = _getEventsForDay(_selectedDay);
-            },
+            onPressed: () {},
           ),
         ],
       ),

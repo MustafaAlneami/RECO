@@ -33,7 +33,7 @@ class CalenderEventCustomlisttile extends StatelessWidget {
             Text('Time: ${calendarStrapiEvent.vidTime}'),
             Text('Channel: ${calendarStrapiEvent.chanelName}'),
             Text(
-                'Date: ${DateFormat('yyyy-MM-dd').format(calendarStrapiEvent.vidDate as DateTime)}'),
+                'Date: ${DateFormat('yyyy-MM-dd').format(calendarStrapiEvent.eventDate)}'),
           ],
         ),
         isThreeLine: true,
@@ -41,7 +41,7 @@ class CalenderEventCustomlisttile extends StatelessWidget {
           // Handle event tap - maybe open the video URL
           if (calendarStrapiEvent.vidLink.isNotEmpty) {
             // Navigate to video or open URL
-            print('Opening video: ${calendarStrapiEvent.vidLink}');
+
             // You could add navigation or URL launching here
           }
         },
