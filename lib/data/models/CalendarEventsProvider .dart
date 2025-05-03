@@ -60,25 +60,79 @@ class CalendarEventsProvider extends ChangeNotifier {
 
       // If no real events, keep your fallback:
       if (newMap.isEmpty) {
-        print('No events found, adding fallback event');
-        final fallback = CalendarStrapiEvent.fromJson({
-          'vidId': 0,
-          'vidTitle': 'Test Event',
-          'vidDescription': 'Auto-added fallback',
-          'vidTime': '12:00',
+        print('No events found, adding test events');
+
+        // Test event for May 4th with ISO format
+        final event1 = CalendarStrapiEvent.fromJson({
+          'vidId': 1,
+          'vidTitle': 'Test Event 1 - ISO Format',
+          'vidDescription': 'Testing ISO date format',
+          'vidTime': '14:00',
+          'vidDuration': '1:30',
+          'vidPlatform': 'Test',
+          'vidLink': '',
+          'vidThumbnail': '',
+          'chanelName': 'Test Channel 1',
+          'chanelLogo': '',
+          'chanelsTags': 'test,iso',
+          'channelId': 1,
+          'vidDate': '2024-05-04T00:00:00.000Z',
+        });
+        newMap[_normalize(event1.eventDate)] = [Event.fromStrapiEvent(event1)];
+
+        // Test event for May 5th with yyyy-MM-dd format
+        final event2 = CalendarStrapiEvent.fromJson({
+          'vidId': 2,
+          'vidTitle': 'Test Event 2 - yyyy-MM-dd',
+          'vidDescription': 'Testing yyyy-MM-dd format',
+          'vidTime': '15:30',
+          'vidDuration': '2:00',
+          'vidPlatform': 'Test',
+          'vidLink': '',
+          'vidThumbnail': '',
+          'chanelName': 'Test Channel 2',
+          'chanelLogo': '',
+          'chanelsTags': 'test,format',
+          'channelId': 2,
+          'vidDate': '2024-05-05',
+        });
+        newMap[_normalize(event2.eventDate)] = [Event.fromStrapiEvent(event2)];
+
+        // Test event for May 15th with M/d/yyyy format
+        final event3 = CalendarStrapiEvent.fromJson({
+          'vidId': 3,
+          'vidTitle': 'Test Event 3 - M/d/yyyy',
+          'vidDescription': 'Testing M/d/yyyy format',
+          'vidTime': '10:00',
           'vidDuration': '1:00',
           'vidPlatform': 'Test',
           'vidLink': '',
           'vidThumbnail': '',
-          'chanelName': 'Fallback',
+          'chanelName': 'Test Channel 3',
           'chanelLogo': '',
-          'chanelsTags': '',
-          'channelId': 0,
-          'vidDate': '4/4/2025',
+          'chanelsTags': 'test,format',
+          'channelId': 3,
+          'vidDate': '5/15/2024',
         });
-        newMap[_normalize(fallback.eventDate)] = [
-          Event.fromStrapiEvent(fallback)
-        ];
+        newMap[_normalize(event3.eventDate)] = [Event.fromStrapiEvent(event3)];
+
+        // Test event with invalid date format
+        final event4 = CalendarStrapiEvent.fromJson({
+          'vidId': 4,
+          'vidTitle': 'Test Event 4 - Invalid Format',
+          'vidDescription': 'Testing invalid date format',
+          'vidTime': '16:00',
+          'vidDuration': '1:15',
+          'vidPlatform': 'Test',
+          'vidLink': '',
+          'vidThumbnail': '',
+          'chanelName': 'Test Channel 4',
+          'chanelLogo': '',
+          'chanelsTags': 'test,invalid',
+          'channelId': 4,
+          'vidDate': 'Invalid Date Format',
+        });
+        newMap[_normalize(event4.eventDate)] = [Event.fromStrapiEvent(event4)];
       }
 
       _strapiEvents = newMap;

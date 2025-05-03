@@ -97,8 +97,16 @@ class CalendarStrapiEvent {
     print('Final normalized date: ${parsed.toIso8601String()}');
     print('==========================================\n');
 
+    // Handle string IDs by extracting numbers
+    int parseId(String? id) {
+      if (id == null) return 0;
+      // Extract numbers from string (e.g., "channelId4" -> 4)
+      final numbers = id.replaceAll(RegExp(r'[^0-9]'), '');
+      return int.tryParse(numbers) ?? 0;
+    }
+
     return CalendarStrapiEvent(
-      vidId: json['vidId'] as int? ?? 0,
+      vidId: parseId(json['vidId']?.toString()),
       vidTitle: json['vidTitle'] as String? ?? '',
       vidDescription: json['vidDescription'] as String? ?? '',
       vidTime: json['vidTime'] as String? ?? '',
@@ -109,7 +117,7 @@ class CalendarStrapiEvent {
       chanelName: json['chanelName'] as String? ?? '',
       chanelLogo: json['chanelLogo'] as String? ?? '',
       chanelsTags: json['chanelsTags'] as String? ?? '',
-      channelId: json['channelId'] as int? ?? 0,
+      channelId: parseId(json['channelId']?.toString()),
       eventDate: parsed,
     );
   }
