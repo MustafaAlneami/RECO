@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
 
 class TestCalendar extends StatefulWidget {
   const TestCalendar({
@@ -13,7 +14,7 @@ class _TestCalendar extends State<TestCalendar> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 130,
+      height: 170,
       child: Card(
         elevation: 3,
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -29,8 +30,8 @@ class _TestCalendar extends State<TestCalendar> {
                 // Thumbnail
                 ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      'images/creator3.jpg',
+                    child: Image.asset(
+                      'images/t1.jpg',
                       width: 120,
                       height: 80,
                       fit: BoxFit.cover,
@@ -50,7 +51,7 @@ class _TestCalendar extends State<TestCalendar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'De Musto',
+                        'De Musto is back baby ',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -58,52 +59,104 @@ class _TestCalendar extends State<TestCalendar> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 7),
                       Row(
                         children: [
-                          CircleAvatar(
-                            radius: 12,
-                            child: Image.asset('images/play.png'),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CircleAvatar(
+                              radius: 15,
+                              child: Image.asset('images/creator3.jpg'),
+                            ),
                           ),
                           const SizedBox(width: 4),
                           Text(
                             'De Mustoo',
                             style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 14,
-                            ),
+                                color: Colors.grey[600],
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal),
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
-                      Row(
+                      Column(
                         children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 16,
-                            color: Colors.grey[600],
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                size: 16,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                ' 10:00 Am',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Icon(
+                                Icons.visibility,
+                                size: 16,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                'YT',
+                                style: TextStyle(
+                                  color: Colors.grey[600],
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            ' 10:00 Am',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            Icons.visibility,
-                            size: 16,
-                            color: Colors.grey[600],
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            'YT',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 12,
-                            ),
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Container(
+                                height: 33,
+                                width: 125,
+                                decoration: BoxDecoration(
+
+                                    // borderRadius: BorderRadius.circular(1),
+                                    ),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    color: Colors.green,
+                                    child: Text('New Release ',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center)),
+                              ),
+                              SizedBox(
+                                width: 1,
+                              ),
+                              Container(
+                                height: 33,
+                                width: 50,
+                                decoration: BoxDecoration(
+
+                                    // borderRadius: BorderRadius.circular(1),
+                                    ),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5)),
+                                    color: Colors.indigo,
+                                    child: Text('#Code',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.center)),
+                              ),
+                            ],
                           ),
                         ],
                       ),
