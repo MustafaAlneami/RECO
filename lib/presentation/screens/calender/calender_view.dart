@@ -63,21 +63,25 @@ class _CalendarViewPageState extends State<CalendarViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calendar Events'),
+        title: const Text(
+          'Calendar Events',
+          style: TextStyle(
+              color: Color.fromARGB(255, 241, 120, 162),
+              fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(
+              Icons.refresh,
+              color: Colors.indigo,
+            ),
             onPressed: () {
               final eventsProvider =
                   Provider.of<CalendarEventsProvider>(context, listen: false);
               eventsProvider.clearEvents();
               eventsProvider.fetchAndFormatStrapiEvents();
             },
-          ),
-          // Debug action to add test event for the selected day
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {},
           ),
         ],
       ),
