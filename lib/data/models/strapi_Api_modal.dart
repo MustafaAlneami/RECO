@@ -65,6 +65,7 @@ class ApiService {
           'chanelLogo': item['chanelLogo'] ?? '',
           'chanelsTags': item['chanelsTags'] ?? '',
           'channelId': item['channelId'] ?? 0,
+          'isNewReleased': item['isNewReleased'] ?? false,
         };
 
         print('Created mapData: $mapData');

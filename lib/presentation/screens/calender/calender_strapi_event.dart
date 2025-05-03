@@ -121,6 +121,8 @@ class CalendarStrapiEvent {
         chanelsTags: json['chanelsTags'] as String? ?? '',
         channelId: parseId(json['channelId']?.toString()),
         eventDate: parsed,
-        isNewReleased: json['isNewReleased'] as bool? ?? true);
+        isNewReleased: json['isNewReleased'] == null
+            ? false
+            : json['isNewReleased'] as bool);
   }
 }

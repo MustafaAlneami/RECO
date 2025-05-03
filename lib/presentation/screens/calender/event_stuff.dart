@@ -36,7 +36,6 @@ class CalendarEventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strapiEvent = event.strapiEvent;
-    bool status = false;
 
     if (strapiEvent == null) {
       return ListTile(
@@ -45,47 +44,6 @@ class CalendarEventCard extends StatelessWidget {
       );
     }
 
-    // return Card(
-    //   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8.0),
-    //   child: ListTile(
-    //     leading: strapiEvent.chanelLogo.isNotEmpty
-    //         ? ClipRRect(
-    //             borderRadius: BorderRadius.circular(100),
-    //             child: Image.network(
-    //               strapiEvent.chanelLogo,
-    //               width: 50,
-    //               height: 50,
-    //               fit: BoxFit.cover,
-    //               errorBuilder: (context, error, stackTrace) =>
-    //                   const Icon(Icons.event, size: 50),
-    //             ),
-    //           )
-    //         : const Icon(Icons.event, size: 50),
-    //     title: Text(
-    //       strapiEvent.vidTitle,
-    //       style: const TextStyle(fontWeight: FontWeight.bold),
-    //     ),
-    //     subtitle: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         //ctrl + . to get the suggestions
-    //         Text('Channel: ${strapiEvent.chanelName}'),
-    //         Text('Time: ${strapiEvent.vidTime}'),
-    //         Text('Duration: ${strapiEvent.vidDuration}'),
-    //         // Text('Platform: ${strapiEvent.vidPlatform}'),
-    //       ],
-    //     ),
-    //     isThreeLine: true,
-    //     onTap: () {
-    //       // Show detailed view or navigate to video
-    //       if (strapiEvent.vidLink.isNotEmpty) {
-    //         // You could open the video link here
-    //         // For example: launchUrl(Uri.parse(strapiEvent.videoLink));
-    //         print('Video link tapped: ${strapiEvent.vidLink}');
-    //       }
-    //     },
-    //   ),
-    // );
     return SizedBox(
       height: 150,
       child: Card(
@@ -175,56 +133,27 @@ class CalendarEventCard extends StatelessWidget {
                               const SizedBox(height: 1),
                               Row(
                                 children: [
-                                  SizedBox(
-                                    height: 30,
-                                    width: 103,
-                                    // child: strapiEvent.isNewReleased == true
-                                    //     ? Card(
-                                    //         shape: RoundedRectangleBorder(
-                                    //             borderRadius:
-                                    //                 BorderRadius.circular(10)),
-                                    //         color: Colors.red,
-                                    //         child: Text('New Released',
-                                    //             style: TextStyle(
-                                    //                 color: Colors.white,
-                                    //                 fontSize: 13,
-                                    //                 fontWeight:
-                                    //                     FontWeight.bold),
-                                    //             textAlign: TextAlign.center))
-                                    //     : Card(
-                                    //         shape: RoundedRectangleBorder(
-                                    //             borderRadius:
-                                    //                 BorderRadius.circular(10)),
-                                    //         color: Colors.green,
-                                    //         child: Text('Classic Gems',
-                                    //             style: TextStyle(
-                                    //                 color: Colors.white,
-                                    //                 fontSize: 13,
-                                    //                 fontWeight:
-                                    //                     FontWeight.bold),
-                                    //             textAlign: TextAlign.center)),
+                                  Card(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    color: strapiEvent.isNewReleased
+                                        ? Colors.red
+                                        : Colors.green,
                                     child: SizedBox(
-                                      height: 30,
-                                      width: 103,
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        color: strapiEvent.isNewReleased
-                                            ? Colors.red
-                                            : Colors.green,
-                                        child: Center(
-                                          child: Text(
-                                            strapiEvent.isNewReleased
-                                                ? 'New Released'
-                                                : 'Classic Gems',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            textAlign: TextAlign.center,
+                                      height: 22,
+                                      width: 95,
+                                      child: Center(
+                                        child: Text(
+                                          strapiEvent.isNewReleased
+                                              ? 'New Released'
+                                              : 'Classic Gems',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.bold,
                                           ),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ),
