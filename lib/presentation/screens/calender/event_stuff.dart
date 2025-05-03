@@ -67,6 +67,7 @@ class CalendarEventCard extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //ctrl + . to get the suggestions
             Text('Channel: ${strapiEvent.chanelName}'),
             Text('Time: ${strapiEvent.vidTime}'),
             Text('Duration: ${strapiEvent.vidDuration}'),
