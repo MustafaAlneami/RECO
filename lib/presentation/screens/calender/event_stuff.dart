@@ -45,16 +45,19 @@ class CalendarEventCard extends StatelessWidget {
     }
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8.0),
       child: ListTile(
-        leading: strapiEvent.vidThumbnail.isNotEmpty
-            ? Image.network(
-                strapiEvent.vidThumbnail,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.event, size: 50),
+        leading: strapiEvent.chanelLogo.isNotEmpty
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
+                  strapiEvent.chanelLogo,
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.event, size: 50),
+                ),
               )
             : const Icon(Icons.event, size: 50),
         title: Text(
@@ -64,10 +67,10 @@ class CalendarEventCard extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text('Channel: ${strapiEvent.chanelName}'),
             Text('Time: ${strapiEvent.vidTime}'),
             Text('Duration: ${strapiEvent.vidDuration}'),
-            Text('Platform: ${strapiEvent.vidPlatform}'),
-            Text('Channel: ${strapiEvent.chanelName}'),
+            // Text('Platform: ${strapiEvent.vidPlatform}'),
           ],
         ),
         isThreeLine: true,

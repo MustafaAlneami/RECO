@@ -47,7 +47,7 @@ class _HomeContentView extends State<HomeContentView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 430,
+      height: 380,
       width: 370,
       child: Card(
         color: Color(0xFFEDEBFA),
@@ -174,12 +174,11 @@ class _HomeContentView extends State<HomeContentView> {
                     margin: EdgeInsets.all(1),
                     width: 170,
                     height: 40,
-                    color: Color(0xFFF6C1D7),
+                    // color: Color(0xFFF6C1D7),
+                    color: Colors.indigo,
                     child: Text(
                       'RECO ',
-                      style: TextStyle(
-                        fontSize: 20,
-                      ),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                   InkWell(
@@ -193,7 +192,7 @@ class _HomeContentView extends State<HomeContentView> {
                       margin: EdgeInsets.all(1),
                       width: 170,
                       height: 40,
-                      color: Color(0xFFFFD8B1),
+                      color: Color(0xFFF6C1D7),
                       child: Text(
                         'Watch ',
                         style: TextStyle(
@@ -204,23 +203,23 @@ class _HomeContentView extends State<HomeContentView> {
                   )
                 ],
               ),
-              Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(3)),
-                //this the needed color purple
-                //color: Color.fromARGB(255, 166, 149, 241),
-                color: Color.fromARGB(255, 166, 149, 241),
-                child: Container(
-                  margin: EdgeInsets.all(1),
-                  alignment: Alignment.center,
-                  width: 360,
-                  height: 40,
-                  child: Text(
-                    widget.vidDate,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ),
+              // Card(
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(3)),
+              //   //this the needed color purple
+              //   //color: Color.fromARGB(255, 166, 149, 241),
+              //   color: Color.fromARGB(255, 166, 149, 241),
+              //   child: Container(
+              //     margin: EdgeInsets.all(1),
+              //     alignment: Alignment.center,
+              //     width: 360,
+              //     height: 40,
+              //     child: Text(
+              //       widget.vidDate,
+              //       style: TextStyle(fontSize: 18),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
