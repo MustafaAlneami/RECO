@@ -25,7 +25,7 @@ class _TestCalendar extends State<TestCalendar> {
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Thumbnail
                 ClipRRect(
