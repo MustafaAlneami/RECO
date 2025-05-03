@@ -42,15 +42,15 @@ class CalendarEventsProvider extends ChangeNotifier {
         hashCode: getHashCode,
       );
 
-      final calendarEvents = rawList['calendarEvents'] as List? ?? [];
-      print('Processing ${calendarEvents.length} events...');
+      final calendarEvents = rawList['calendarEvents'] ?? [];
+      //print('Processing ${calendarEvents.length} events...');
 
       for (var event in calendarEvents) {
         try {
           final se = CalendarStrapiEvent.fromJson(event);
           final key = _normalize(se.eventDate);
-          print(
-              'Mapping event "${se.vidTitle}" to date: ${key.toIso8601String()}');
+          // print(
+          //     'Mapping event "${se.vidTitle}" to date: ${key.toIso8601String()}');
 
           newMap.putIfAbsent(key, () => []).add(Event.fromStrapiEvent(se));
         } catch (e) {

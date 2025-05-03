@@ -124,6 +124,7 @@ class _HomeView extends State<HomeView> {
                           channelId: card.channelId,
                           vidId: card.vidId,
                           vidPlatform: card.vidPlatform,
+                          isNewReleased: '',
                         );
                       } else {
                         return const Padding(

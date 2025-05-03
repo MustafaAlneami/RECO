@@ -16,6 +16,7 @@ class CalendarStrapiEvent {
   final String chanelsTags;
   final int channelId;
   final DateTime eventDate;
+  final bool isNewReleased;
 
   CalendarStrapiEvent({
     required this.vidId,
@@ -31,6 +32,7 @@ class CalendarStrapiEvent {
     required this.chanelsTags,
     required this.channelId,
     required this.eventDate,
+    required this.isNewReleased,
   });
 
   factory CalendarStrapiEvent.fromJson(Map<String, dynamic> json) {
@@ -106,19 +108,19 @@ class CalendarStrapiEvent {
     }
 
     return CalendarStrapiEvent(
-      vidId: parseId(json['vidId']?.toString()),
-      vidTitle: json['vidTitle'] as String? ?? '',
-      vidDescription: json['vidDescription'] as String? ?? '',
-      vidTime: json['vidTime'] as String? ?? '',
-      vidDuration: json['vidDuration'] as String? ?? '',
-      vidPlatform: json['vidPlatform'] as String? ?? '',
-      vidLink: json['vidLink'] as String? ?? '',
-      vidThumbnail: json['vidThumbnail'] as String? ?? '',
-      chanelName: json['chanelName'] as String? ?? '',
-      chanelLogo: json['chanelLogo'] as String? ?? '',
-      chanelsTags: json['chanelsTags'] as String? ?? '',
-      channelId: parseId(json['channelId']?.toString()),
-      eventDate: parsed,
-    );
+        vidId: parseId(json['vidId']?.toString()),
+        vidTitle: json['vidTitle'] as String? ?? '',
+        vidDescription: json['vidDescription'] as String? ?? '',
+        vidTime: json['vidTime'] as String? ?? '',
+        vidDuration: json['vidDuration'] as String? ?? '',
+        vidPlatform: json['vidPlatform'] as String? ?? '',
+        vidLink: json['vidLink'] as String? ?? '',
+        vidThumbnail: json['vidThumbnail'] as String? ?? '',
+        chanelName: json['chanelName'] as String? ?? '',
+        chanelLogo: json['chanelLogo'] as String? ?? '',
+        chanelsTags: json['chanelsTags'] as String? ?? '',
+        channelId: parseId(json['channelId']?.toString()),
+        eventDate: parsed,
+        isNewReleased: json['isNewReleased'] as bool? ?? true);
   }
 }

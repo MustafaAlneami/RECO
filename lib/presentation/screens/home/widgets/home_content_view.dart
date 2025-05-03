@@ -16,6 +16,7 @@ class HomeContentView extends StatefulWidget {
   final String vidLink;
   final String vidDescription;
   final String vidPlatform;
+  final String isNewReleased;
 
   const HomeContentView(
       {super.key,
@@ -30,7 +31,8 @@ class HomeContentView extends StatefulWidget {
       required this.chanelLogo,
       required this.channelId,
       required this.vidId,
-      required this.vidPlatform});
+      required this.vidPlatform,
+      required this.isNewReleased});
 
   @override
   State<HomeContentView> createState() => _HomeContentView();
