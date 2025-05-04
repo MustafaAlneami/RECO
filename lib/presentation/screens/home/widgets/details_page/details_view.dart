@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reco_is_here/core/constants/app_colors.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({super.key});
@@ -10,192 +11,262 @@ class DetailsView extends StatefulWidget {
 class _DetailsView extends State<DetailsView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: [
-          //expanded used to
-          Expanded(
-            child: ListView(
-              children: [
-                SizedBox(
-                  height: 250,
-                  child: Card(
-                    elevation: 5,
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: SizedBox(
-                            width: 360,
-                            height: 250,
-                            //color: Colors.green,
-                            child: Image.asset(
-                              'images/t1.jpg',
-                              fit: BoxFit.fill,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                    'images/video-placeholder.png',
-                                    fit: BoxFit.fill);
-                              },
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 10,
-                          left: 10,
-                          child: SizedBox(
-                            width: 35,
-                            height: 35,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Add this line
+          children: [
+            //expanded used to
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 250,
+                    child: Card(
+                      elevation: 5,
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              width: 360,
+                              height: 250,
+                              //color: Colors.green,
                               child: Image.asset(
-                                'images/yt logo.avif',
+                                'images/t1.jpg',
                                 fit: BoxFit.fill,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Image.asset(
-                                      'images/image_placeholder.png',
+                                      'images/video-placeholder.png',
                                       fit: BoxFit.fill);
                                 },
                               ),
                             ),
                           ),
+                          Positioned(
+                            bottom: 10,
+                            left: 10,
+                            child: SizedBox(
+                              width: 35,
+                              height: 35,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset(
+                                  'images/yt logo.avif',
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                        'images/image_placeholder.png',
+                                        fit: BoxFit.fill);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  //Divider(thickness: 1, color: Colors.grey),
+
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 100,
+                              height: 100,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.asset(
+                                  'images/creator3.jpg',
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Image.asset(
+                                        'images/profile_placeholder.jpg',
+                                        fit: BoxFit.fill);
+                                  },
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Container(
+                              width: 100,
+                              height: 25,
+                              decoration: BoxDecoration(
+                                  color: AppColors.pinkyone,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Center(
+                                child: Text(
+                                  'De Musto',
+                                  //  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.normal),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 150,
+                              child: Text(
+                                'welcome guys to this welcome guys to this welcome guys to this welcome guys to this welcome guys to this   ',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    // TODO: Focus on the text probties abgout the load text
+                                    // TODO: make it for all the project texts
+
+                                    fontWeight: FontWeight.bold,
+                                    fontStyle: FontStyle.normal),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Colors.red,
+                              child: SizedBox(
+                                height: 25,
+                                width: 120,
+                                child: Center(
+                                  child: Text(
+                                    'New Released',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Card(
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Colors.indigo,
+                              child: SizedBox(
+                                height: 25,
+                                width: 80,
+                                child: Center(
+                                  child: Text(
+                                    'coding',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                //Divider(thickness: 1, color: Colors.grey),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'welcome guys to this video title this  ',
+                      'De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De MustoDe Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De MustoDe Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De MustoDe Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De MustoDe Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto De Musto',
+                      //  textAlign: TextAlign.start,
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.normal),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: SizedBox(
-                    width: 330,
-                    height: 50,
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(200),
-                          child: Image.asset(
-                            'images/creator3.jpg',
-                            fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Image.asset(
-                                  'images/profile_placeholder.jpg',
-                                  fit: BoxFit.fill);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8,
-                        ),
-                        Text(
-                          'De Mustoo',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.indigo,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          color: Colors.red,
-                          child: SizedBox(
-                            height: 30,
-                            width: 120,
-                            child: Center(
-                              child: Text(
-                                'New Released',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.indigo,
+                        borderRadius: BorderRadius.circular(5)),
+                    margin: EdgeInsets.all(1),
+                    width: 180,
+                    height: 40,
+                    // color: Color(0xFFF6C1D7),
+
+                    child: Text(
+                      'RECO ',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 ),
+                // SizedBox(
+                //   width: 10,
+                // ),
+                InkWell(
+                  onTap: () {
+                    // widget.vidLink;
+                    // print('vidLink: ${widget.vidLink}');
+                    // _launchURL(widget.vidLink);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color(0xFFF6C1D7),
+                        borderRadius: BorderRadius.circular(5)),
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(1),
+                    width: 180,
+                    height: 40,
+                    child: Text(
+                      'Watch ',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: Colors.indigo,
-                      borderRadius: BorderRadius.circular(5)),
-                  margin: EdgeInsets.all(1),
-                  width: 180,
-                  height: 40,
-                  // color: Color(0xFFF6C1D7),
-
-                  child: Text(
-                    'RECO ',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                ),
-              ),
-              // SizedBox(
-              //   width: 10,
-              // ),
-              InkWell(
-                onTap: () {
-                  // widget.vidLink;
-                  // print('vidLink: ${widget.vidLink}');
-                  // _launchURL(widget.vidLink);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Color(0xFFF6C1D7),
-                      borderRadius: BorderRadius.circular(5)),
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.all(1),
-                  width: 180,
-                  height: 40,
-                  child: Text(
-                    'Watch ',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 1,
-          ),
-        ],
+            SizedBox(
+              height: 1,
+            ),
+          ],
+        ),
       ),
     );
   }
