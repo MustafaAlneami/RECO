@@ -49,7 +49,7 @@ class _HomeContentView extends State<HomeContentView> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 380,
+      height: 355,
       width: 370,
       child: Card(
         color: Color(0xFFEDEBFA),
@@ -65,7 +65,7 @@ class _HomeContentView extends State<HomeContentView> {
                     borderRadius: BorderRadius.circular(15),
                     child: SizedBox(
                       width: 345,
-                      height: 230,
+                      height: 200,
                       //color: Colors.green,
                       child: Image.network(
                         widget.vidThumbnail,
