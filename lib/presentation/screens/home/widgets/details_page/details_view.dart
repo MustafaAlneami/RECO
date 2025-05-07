@@ -23,7 +23,7 @@ class _DetailsView extends State<DetailsView> {
               child: ListView(
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: 220,
                     child: Card(
                       elevation: 5,
                       child: Stack(
@@ -171,7 +171,7 @@ class _DetailsView extends State<DetailsView> {
                               ),
                             ),
                             SizedBox(
-                              height: 3,
+                              height: 5,
                             ),
                             Card(
                               margin: EdgeInsets.zero,
@@ -194,15 +194,273 @@ class _DetailsView extends State<DetailsView> {
                                 ),
                               ),
                             ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Card(
+                              margin: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              color: Colors.blueGrey,
+                              child: SizedBox(
+                                height: 25,
+                                width: 100,
+                                child: Center(
+                                  child: Text(
+                                    'YouTube',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 5,
+                    height: 10,
                   ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border:
+                          Border.all(color: Colors.grey.shade200, width: 0.5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withAlpha(10),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Table(
+                        border: TableBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          horizontalInside:
+                              BorderSide(color: Colors.grey, width: 0.5),
+                        ),
+                        columnWidths: const {
+                          0: FlexColumnWidth(1.2),
+                          1: FlexColumnWidth(0.8),
+                        },
+                        children: [
+                          // Duration row
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            children: [
+                              TableCell(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.indigo.shade50,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          '⏱️',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12),
+                                      Text(
+                                        'Duration:',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.primaryColor,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.pink,
+                                              blurRadius: 1,
+                                              offset: Offset(0, 1),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              TableCell(
+                                verticalAlignment:
+                                    TableCellVerticalAlignment.middle,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    '10:23',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.pinkyone,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.pink,
+                                          blurRadius: 0.2,
+                                          offset: Offset(0, 1),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
 
+                          // Date row
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            children: [
+                              TableCell(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.indigo.shade50,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          '📅',
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12),
+                                      Text(
+                                        'Date:',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.primaryColor,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.pink,
+                                              blurRadius: 1,
+                                              offset: Offset(0, 1),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              TableCell(
+                                verticalAlignment:
+                                    TableCellVerticalAlignment.middle,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    '4th June 2025',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.pinkyone,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.pink,
+                                          blurRadius: 0.2,
+                                          offset: Offset(0, 1),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          // Time row
+                          TableRow(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            children: [
+                              TableCell(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.indigo.shade50,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        padding: EdgeInsets.all(8),
+                                        child: Text(
+                                          '🕙',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12),
+                                      Text(
+                                        'Time:',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: AppColors.primaryColor,
+                                          fontWeight: FontWeight.bold,
+                                          shadows: [
+                                            Shadow(
+                                              color: Colors.pink,
+                                              blurRadius: 1,
+                                              offset: Offset(0, 1),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              TableCell(
+                                verticalAlignment:
+                                    TableCellVerticalAlignment.middle,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Text(
+                                    '10:23 GMT',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.pinkyone,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.pink,
+                                          blurRadius: 0.2,
+                                          offset: Offset(0, 1),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
