@@ -199,6 +199,31 @@ class _DetailsView extends State<DetailsView> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 100,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: AppColors.primaryColor,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Center(
+                        child: Text(
+                          'Description : ',
+                          //  textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal),
+                        ),
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
