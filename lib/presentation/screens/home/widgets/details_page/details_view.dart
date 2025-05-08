@@ -444,6 +444,7 @@ class _DetailsView extends State<DetailsView> {
                                       fontSize: 16,
                                       color: AppColors.pinkyone,
                                       fontWeight: FontWeight.bold,
+                                      //TODO: review the table stuff
                                       shadows: [
                                         Shadow(
                                           color: Colors.pink,
