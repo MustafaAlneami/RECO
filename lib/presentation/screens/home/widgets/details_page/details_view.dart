@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_carousel/infinite_carousel.dart';
 import 'package:reco_is_here/core/constants/app_colors.dart';
+import 'package:reco_is_here/presentation/screens/home/widgets/details_page/comlex.dart';
+import 'package:reco_is_here/presentation/screens/home/widgets/details_page/horizontal.dart';
+import 'package:reco_is_here/presentation/screens/home/widgets/details_page/vertical.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({super.key});
@@ -9,6 +13,8 @@ class DetailsView extends StatefulWidget {
 }
 
 class _DetailsView extends State<DetailsView> {
+  late InfiniteScrollController controller;
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -418,12 +424,12 @@ class _DetailsView extends State<DetailsView> {
                                         'Time:',
                                         style: TextStyle(
                                           fontSize: 18,
-                                          color: AppColors.primaryColor,
+                                          color: Colors.indigo,
                                           fontWeight: FontWeight.bold,
                                           shadows: [
                                             Shadow(
-                                              color: Colors.pink,
-                                              blurRadius: 1,
+                                              color: Colors.indigo,
+                                              blurRadius: 5,
                                               offset: Offset(0, 1),
                                             ),
                                           ],
@@ -441,14 +447,14 @@ class _DetailsView extends State<DetailsView> {
                                   child: Text(
                                     '10:23 GMT',
                                     style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.pinkyone,
+                                      fontSize: 18,
+                                      color: Colors.pink,
                                       fontWeight: FontWeight.bold,
                                       //TODO: review the table stuff
                                       shadows: [
                                         Shadow(
                                           color: Colors.pink,
-                                          blurRadius: 0.2,
+                                          blurRadius: 4,
                                           offset: Offset(0, 1),
                                         ),
                                       ],
@@ -460,6 +466,38 @@ class _DetailsView extends State<DetailsView> {
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                  //TODO   debugShowCheckedModeBanner: false,
+                  Container(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          child: const Text('Horizontal example'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Horizontal()));
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        ElevatedButton(
+                          child: const Text('Vertical example'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Vertical()));
+                          },
+                        ),
+                        const SizedBox(height: 30),
+                        ElevatedButton(
+                          child: const Text('Complex example'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Complex()));
+                          },
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
@@ -554,6 +592,52 @@ class _DetailsView extends State<DetailsView> {
       ),
     );
   }
+//   void _swipeEnd(int previousIndex, int targetIndex, SwiperActivity activity) {
+//     switch (activity) {
+//       case Swipe():
+//         log('The card was swiped to the : ${activity.direction}');
+//         log('previous index: $previousIndex, target index: $targetIndex');
+//         break;
+//       case Unswipe():
+//         log('A ${activity.direction.name} swipe was undone.');
+//         log('previous index: $previousIndex, target index: $targetIndex');
+//         break;
+//       case CancelSwipe():
+//         log('A swipe was cancelled');
+//         break;
+//       case DrivenActivity():
+//         log('Driven Activity');
+//         break;
+//     }
+//   }
+
+//   void _onEnd() {
+//     log('end reached!');
+//   }
+
+//   // Animates the card back and forth to teach the user that it is swipable.
+//   Future<void> _shakeCard() async {
+//     const double distance = 30;
+//     // We can animate back and forth by chaining different animations.
+//     await swipeController.animateTo(
+//       const Offset(-distance, 0),
+//       duration: const Duration(milliseconds: 200),
+//       curve: Curves.easeInOut,
+//     );
+//     await swipeController.animateTo(
+//       const Offset(distance, 0),
+//       duration: const Duration(milliseconds: 400),
+//       curve: Curves.easeInOut,
+//     );
+//     // We need to animate back to the center because `animateTo` does not center
+//     // the card for us.
+//     await swipeController.animateTo(
+//       const Offset(0, 0),
+//       duration: const Duration(milliseconds: 200),
+//       curve: Curves.easeInOut,
+//     );
+//   }
+// }
 }
 
 //tested class of notch
