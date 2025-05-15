@@ -248,8 +248,9 @@ class _DetailsView extends State<DetailsView> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
+
                   // Container(
                   //   decoration: BoxDecoration(
                   //     borderRadius: BorderRadius.circular(10),
@@ -491,7 +492,7 @@ class _DetailsView extends State<DetailsView> {
 
                   //this is new carousel
                   SizedBox(
-                    height: 110,
+                    height: 115,
                     child: InfiniteCarousel.builder(
                       itemCount: 3,
                       itemExtent: MediaQuery.of(context).size.width - 60,
@@ -554,16 +555,16 @@ class _DetailsView extends State<DetailsView> {
                             );
                           },
                           child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 2),
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
                                 color: Colors.white,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
-                                    blurRadius: 10,
+                                    color: Colors.indigo.withValues(alpha: 0.1),
+                                    blurRadius: 20,
                                     spreadRadius: 2,
                                     offset: Offset(0, 4),
                                   ),
@@ -609,13 +610,17 @@ class _DetailsView extends State<DetailsView> {
                                           '${item['value']}',
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: AppColors.newReleasedColor
-                                                .withOpacity(0.8),
-                                            fontWeight: FontWeight.w400,
+                                            color: Colors.pink,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ],
                                     ),
+                                    SizedBox(
+                                      width: 40,
+                                    ),
+                                    Icon(Icons.auto_awesome,
+                                        size: 30, color: Colors.indigo),
                                   ],
                                 ),
                               ),
