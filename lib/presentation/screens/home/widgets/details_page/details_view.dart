@@ -15,16 +15,20 @@ class DetailsView extends StatefulWidget {
 
 class _DetailsView extends State<DetailsView> {
   late InfiniteScrollController controller;
+
+  late ScrollController listViewController;
   int selectedIndex = 0;
   @override
   void initState() {
     super.initState();
     controller = InfiniteScrollController(initialItem: selectedIndex);
+    listViewController = ScrollController();
   }
 
   @override
   void dispose() {
     controller.dispose();
+    listViewController.dispose();
     super.dispose();
   }
 
@@ -40,6 +44,7 @@ class _DetailsView extends State<DetailsView> {
             //expanded used to
             Expanded(
               child: ListView(
+                controller: listViewController,
                 children: [
                   SizedBox(
                     height: 220,
@@ -245,253 +250,255 @@ class _DetailsView extends State<DetailsView> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border:
-                          Border.all(color: Colors.grey.shade200, width: 0.5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withAlpha(10),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      //learn the table and delete it now and change the stuff
-                      child: Table(
-                        border: TableBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          horizontalInside:
-                              BorderSide(color: Colors.grey, width: 0.5),
-                        ),
-                        columnWidths: const {
-                          0: FlexColumnWidth(1.2),
-                          1: FlexColumnWidth(0.8),
-                        },
-                        children: [
-                          // Duration row
-                          TableRow(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            children: [
-                              TableCell(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.indigo.shade50,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        padding: EdgeInsets.all(8),
-                                        child: Text(
-                                          '⏱️',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(width: 12),
-                                      Text(
-                                        'Duration:',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.primaryColor,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                              color: Colors.pink,
-                                              blurRadius: 1,
-                                              offset: Offset(0, 1),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              TableCell(
-                                verticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Text(
-                                    '10:23',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.pinkyone,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.pink,
-                                          blurRadius: 0.2,
-                                          offset: Offset(0, 1),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     border:
+                  //         Border.all(color: Colors.grey.shade200, width: 0.5),
+                  //     boxShadow: [
+                  //       BoxShadow(
+                  //         color: Colors.black.withAlpha(10),
+                  //         blurRadius: 4,
+                  //         offset: Offset(0, 2),
+                  //       ),
+                  //     ],
+                  //   ),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(8.0),
+                  //     //learn the table and delete it now and change the stuff
+                  //     child: Table(
+                  //       border: TableBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         horizontalInside:
+                  //             BorderSide(color: Colors.grey, width: 0.5),
+                  //       ),
+                  //       columnWidths: const {
+                  //         0: FlexColumnWidth(1.2),
+                  //         1: FlexColumnWidth(0.8),
+                  //       },
+                  //       children: [
+                  //         // Duration row
+                  //         TableRow(
+                  //           decoration: BoxDecoration(
+                  //             color: Colors.white,
+                  //           ),
+                  //           children: [
+                  //             TableCell(
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Row(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         color: Colors.indigo.shade50,
+                  //                         borderRadius:
+                  //                             BorderRadius.circular(8),
+                  //                       ),
+                  //                       padding: EdgeInsets.all(8),
+                  //                       child: Text(
+                  //                         '⏱️',
+                  //                         style: TextStyle(fontSize: 20),
+                  //                       ),
+                  //                     ),
+                  //                     SizedBox(width: 12),
+                  //                     Text(
+                  //                       'Duration:',
+                  //                       style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: AppColors.primaryColor,
+                  //                         fontWeight: FontWeight.bold,
+                  //                         shadows: [
+                  //                           Shadow(
+                  //                             color: Colors.pink,
+                  //                             blurRadius: 1,
+                  //                             offset: Offset(0, 1),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             TableCell(
+                  //               verticalAlignment:
+                  //                   TableCellVerticalAlignment.middle,
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Text(
+                  //                   '10:23',
+                  //                   style: TextStyle(
+                  //                     fontSize: 16,
+                  //                     color: AppColors.pinkyone,
+                  //                     fontWeight: FontWeight.bold,
+                  //                     shadows: [
+                  //                       Shadow(
+                  //                         color: Colors.pink,
+                  //                         blurRadius: 0.2,
+                  //                         offset: Offset(0, 1),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
 
-                          // Date row
-                          TableRow(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            children: [
-                              TableCell(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.indigo.shade50,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        padding: EdgeInsets.all(8),
-                                        child: Text(
-                                          '📅',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ),
-                                      SizedBox(width: 12),
-                                      Text(
-                                        'Date:',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: AppColors.primaryColor,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                              color: Colors.pink,
-                                              blurRadius: 1,
-                                              offset: Offset(0, 1),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              TableCell(
-                                verticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Text(
-                                    '4th June 2025',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.pinkyone,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.pink,
-                                          blurRadius: 0.2,
-                                          offset: Offset(0, 1),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                  //         // Date row
+                  //         TableRow(
+                  //           decoration: BoxDecoration(
+                  //             color: Colors.white,
+                  //           ),
+                  //           children: [
+                  //             TableCell(
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Row(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         color: Colors.indigo.shade50,
+                  //                         borderRadius:
+                  //                             BorderRadius.circular(8),
+                  //                       ),
+                  //                       padding: EdgeInsets.all(8),
+                  //                       child: Text(
+                  //                         '📅',
+                  //                         style: TextStyle(fontSize: 20),
+                  //                       ),
+                  //                     ),
+                  //                     SizedBox(width: 12),
+                  //                     Text(
+                  //                       'Date:',
+                  //                       style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: AppColors.primaryColor,
+                  //                         fontWeight: FontWeight.bold,
+                  //                         shadows: [
+                  //                           Shadow(
+                  //                             color: Colors.pink,
+                  //                             blurRadius: 1,
+                  //                             offset: Offset(0, 1),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             TableCell(
+                  //               verticalAlignment:
+                  //                   TableCellVerticalAlignment.middle,
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Text(
+                  //                   '4th June 2025',
+                  //                   style: TextStyle(
+                  //                     fontSize: 16,
+                  //                     color: AppColors.pinkyone,
+                  //                     fontWeight: FontWeight.bold,
+                  //                     shadows: [
+                  //                       Shadow(
+                  //                         color: Colors.pink,
+                  //                         blurRadius: 0.2,
+                  //                         offset: Offset(0, 1),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
 
-                          // Time row
-                          TableRow(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            children: [
-                              TableCell(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.indigo.shade50,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        padding: EdgeInsets.all(8),
-                                        child: Text(
-                                          '🕙',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                      SizedBox(width: 12),
-                                      Text(
-                                        'Time:',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.indigo,
-                                          fontWeight: FontWeight.bold,
-                                          shadows: [
-                                            Shadow(
-                                              color: Colors.indigo,
-                                              blurRadius: 5,
-                                              offset: Offset(0, 1),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              TableCell(
-                                verticalAlignment:
-                                    TableCellVerticalAlignment.middle,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: Text(
-                                    '10:23 GMT',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.pink,
-                                      fontWeight: FontWeight.bold,
-                                      //TODO: review the table stuff
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.pink,
-                                          blurRadius: 4,
-                                          offset: Offset(0, 1),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  //         // Time row
+                  //         TableRow(
+                  //           decoration: BoxDecoration(
+                  //             color: Colors.white,
+                  //           ),
+                  //           children: [
+                  //             TableCell(
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Row(
+                  //                   children: [
+                  //                     Container(
+                  //                       decoration: BoxDecoration(
+                  //                         color: Colors.indigo.shade50,
+                  //                         borderRadius:
+                  //                             BorderRadius.circular(8),
+                  //                       ),
+                  //                       padding: EdgeInsets.all(8),
+                  //                       child: Text(
+                  //                         '🕰️',
+                  //                         style: TextStyle(
+                  //                             fontSize: 20,
+                  //                             color: Colors.white),
+                  //                       ),
+                  //                     ),
+                  //                     SizedBox(width: 12),
+                  //                     Text(
+                  //                       'Time:',
+                  //                       style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: Colors.indigo,
+                  //                         fontWeight: FontWeight.bold,
+                  //                         shadows: [
+                  //                           Shadow(
+                  //                             color: Colors.indigo,
+                  //                             blurRadius: 5,
+                  //                             offset: Offset(0, 1),
+                  //                           ),
+                  //                         ],
+                  //                       ),
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //             TableCell(
+                  //               verticalAlignment:
+                  //                   TableCellVerticalAlignment.middle,
+                  //               child: Padding(
+                  //                 padding: const EdgeInsets.all(12.0),
+                  //                 child: Text(
+                  //                   '10:23 GMT',
+                  //                   style: TextStyle(
+                  //                     fontSize: 18,
+                  //                     color: Colors.pink,
+                  //                     fontWeight: FontWeight.bold,
+                  //                     //TODO: review the table stuff
+                  //                     shadows: [
+                  //                       Shadow(
+                  //                         color: Colors.pink,
+                  //                         blurRadius: 4,
+                  //                         offset: Offset(0, 1),
+                  //                       ),
+                  //                     ],
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   //TODO   debugShowCheckedModeBanner: false,
+
+                  //this is new carousel
                   SizedBox(
-                    height: 120,
+                    height: 110,
                     child: InfiniteCarousel.builder(
                       itemCount: 3,
-                      itemExtent: MediaQuery.of(context).size.width - 40,
+                      itemExtent: MediaQuery.of(context).size.width - 60,
                       center: true,
-                      loop: true, // Enable infinite looping
+                      loop: true,
                       anchor: 0.0,
-                      velocityFactor: 0.2,
+                      velocityFactor: 0.5,
                       onIndexChanged: (index) {
                         setState(() {
                           selectedIndex = index;
@@ -499,29 +506,28 @@ class _DetailsView extends State<DetailsView> {
                       },
                       controller: controller,
                       itemBuilder: (context, itemIndex, realIndex) {
-                        // Define the data for each card
                         final List<Map<String, dynamic>> carouselData = [
                           {
-                            'icon': '⏱️',
-                            'label': 'Duration',
-                            'value': '10:23',
-                            'color': Colors.white,
-                            'iconBg': Colors.indigo.shade50,
+                            'icon': '⏳',
+                            'label': 'Duration :',
+                            'value': '10:23 min',
+                            'iconBg': AppColors.primaryColorTwo
+                                .withValues(alpha: 0.1),
                           },
                           {
                             'icon': '📅',
-                            'label': 'Date',
+                            'label': 'Date :',
                             'value': '4th June 2025',
-                            'color': Colors.white,
-                            'iconBg': Colors.indigo.shade50,
+                            'iconBg': AppColors.primaryColorTwo
+                                .withValues(alpha: 0.1),
                           },
                           {
-                            'icon': '🕙',
-                            'label': 'Time',
+                            'icon': '🕰️',
+                            'label': 'Time :',
                             'value': '10:23 GMT',
-                            'color': Colors.white,
-                            'iconBg': Colors.indigo.shade50,
-                            'iconColor': Colors.white,
+                            'iconBg': AppColors.primaryColorTwo
+                                .withValues(alpha: 0.1),
+                            'iconColor': AppColors.primaryColorTwo,
                           },
                         ];
 
@@ -532,11 +538,11 @@ class _DetailsView extends State<DetailsView> {
                           animation: controller,
                           builder: (context, child) {
                             final diff = (controller.offset -
-                                (MediaQuery.of(context).size.width - 40) *
+                                (MediaQuery.of(context).size.width - 60) *
                                     realIndex);
-                            const maxPadding = 10.0;
+                            const maxPadding = 12.0;
                             final carouselRatio =
-                                (MediaQuery.of(context).size.width - 40) /
+                                (MediaQuery.of(context).size.width - 60) /
                                     maxPadding;
 
                             return Padding(
@@ -548,40 +554,42 @@ class _DetailsView extends State<DetailsView> {
                             );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 8.0),
                             child: Container(
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: item['color'] as Color,
-                                // boxShadow: [
-                                //   BoxShadow(
-                                //     color: Colors.black.withAlpha(20),
-                                //     blurRadius: 4,
-                                //     offset: Offset(0, 2),
-                                //   ),
-                                // ],
+                                borderRadius: BorderRadius.circular(16),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.05),
+                                    blurRadius: 10,
+                                    spreadRadius: 2,
+                                    offset: Offset(0, 4),
+                                  ),
+                                ],
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                        color: item['iconBg'] as Color,
-                                        borderRadius: BorderRadius.circular(8),
+                                        color: item['iconBg'] as Color? ??
+                                            Colors.grey.shade100,
+                                        borderRadius: BorderRadius.circular(12),
                                       ),
-                                      padding: EdgeInsets.all(12),
+                                      padding: EdgeInsets.all(14),
                                       child: Text(
                                         item['icon']!,
                                         style: TextStyle(
-                                          fontSize: 24,
-                                          color: item.containsKey('iconColor')
-                                              ? item['iconColor'] as Color
-                                              : Colors.black,
+                                          fontSize: 28,
+                                          color:
+                                              item['iconColor'] ?? Colors.black,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 16),
+                                    SizedBox(width: 20),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -589,20 +597,21 @@ class _DetailsView extends State<DetailsView> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          '${item['label']}:',
+                                          '${item['label']}',
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: AppColors.primaryColor,
                                             fontWeight: FontWeight.bold,
+                                            color: AppColors.primaryColor,
                                           ),
                                         ),
-                                        SizedBox(height: 4),
+                                        SizedBox(height: 6),
                                         Text(
-                                          item['value']!,
+                                          '${item['value']}',
                                           style: TextStyle(
                                             fontSize: 15,
-                                            color: Colors.pink,
-                                            fontWeight: FontWeight.w300,
+                                            color: AppColors.newReleasedColor
+                                                .withOpacity(0.8),
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         ),
                                       ],
@@ -616,36 +625,40 @@ class _DetailsView extends State<DetailsView> {
                       },
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.topCenter,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        ElevatedButton(
-                          child: const Text('Horizontal example'),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Horizontal()));
-                          },
-                        ),
-                        const SizedBox(height: 30),
-                        ElevatedButton(
-                          child: const Text('Vertical example'),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Vertical()));
-                          },
-                        ),
-                        const SizedBox(height: 30),
-                        ElevatedButton(
-                          child: const Text('Complex example'),
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Complex()));
-                          },
-                        ),
-                      ],
-                    ),
+
+                  // Container(
+                  //   alignment: Alignment.topCenter,
+                  //   child: Column(
+                  //     children: [
+                  //       const SizedBox(height: 20),
+                  //       ElevatedButton(
+                  //         child: const Text('Horizontal example'),
+                  //         onPressed: () {
+                  //           Navigator.of(context).push(MaterialPageRoute(
+                  //               builder: (context) => const Horizontal()));
+                  //         },
+                  //       ),
+                  //       const SizedBox(height: 30),
+                  //       ElevatedButton(
+                  //         child: const Text('Vertical example'),
+                  //         onPressed: () {
+                  //           Navigator.of(context).push(MaterialPageRoute(
+                  //               builder: (context) => const Vertical()));
+                  //         },
+                  //       ),
+                  //       const SizedBox(height: 30),
+                  //       ElevatedButton(
+                  //         child: const Text('Complex example'),
+                  //         onPressed: () {
+                  //           Navigator.of(context).push(MaterialPageRoute(
+                  //               builder: (context) => const Complex()));
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
