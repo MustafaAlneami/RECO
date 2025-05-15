@@ -17,6 +17,18 @@ class _DetailsView extends State<DetailsView> {
   late InfiniteScrollController controller;
   int selectedIndex = 0;
   @override
+  void initState() {
+    super.initState();
+    controller = InfiniteScrollController(initialItem: selectedIndex);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
@@ -471,7 +483,7 @@ class _DetailsView extends State<DetailsView> {
                   ),
                   //TODO   debugShowCheckedModeBanner: false,
                   SizedBox(
-                    height: 200,
+                    height: 120,
                     child: InfiniteCarousel.builder(
                       itemCount: 3,
                       itemExtent: MediaQuery.of(context).size.width - 40,
@@ -492,7 +504,7 @@ class _DetailsView extends State<DetailsView> {
                             'icon': '⏱️',
                             'label': 'Duration',
                             'value': '10:23',
-                            'color': Color(0xFFF8BBD0).withAlpha(40),
+                            'color': Colors.white,
                             'iconBg': Colors.indigo.shade50,
                           },
                           {
@@ -506,8 +518,8 @@ class _DetailsView extends State<DetailsView> {
                             'icon': '🕙',
                             'label': 'Time',
                             'value': '10:23 GMT',
-                            'color': Color(0xFFF8BBD0).withAlpha(40),
-                            'iconBg': Colors.indigo,
+                            'color': Colors.white,
+                            'iconBg': Colors.indigo.shade50,
                             'iconColor': Colors.white,
                           },
                         ];
@@ -540,13 +552,13 @@ class _DetailsView extends State<DetailsView> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: item['color'] as Color,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withAlpha(20),
-                                    blurRadius: 4,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.black.withAlpha(20),
+                                //     blurRadius: 4,
+                                //     offset: Offset(0, 2),
+                                //   ),
+                                // ],
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
@@ -587,9 +599,9 @@ class _DetailsView extends State<DetailsView> {
                                         Text(
                                           item['value']!,
                                           style: TextStyle(
-                                            fontSize: 18,
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15,
+                                            color: Colors.pink,
+                                            fontWeight: FontWeight.w300,
                                           ),
                                         ),
                                       ],
