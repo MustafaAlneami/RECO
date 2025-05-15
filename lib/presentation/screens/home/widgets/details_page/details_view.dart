@@ -260,7 +260,7 @@ class _DetailsView extends State<DetailsView> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      //learn the table and delete it now
+                      //learn the table and delete it now and change the stuff
                       child: Table(
                         border: TableBorder(
                           borderRadius: BorderRadius.circular(10),
