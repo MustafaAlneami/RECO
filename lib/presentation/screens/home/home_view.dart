@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reco_is_here/data/models/video_tag_provider.dart';
+import 'package:reco_is_here/presentation/screens/home/widgets/details_page/details_view.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/home_content_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -111,20 +112,43 @@ class _HomeView extends State<HomeView> {
                     itemBuilder: (context, index) {
                       if (index < videotagProvider.videos.length) {
                         final card = videotagProvider.videos[index];
-                        return HomeContentView(
-                          chanelName: card.chanelName,
-                          chanelsTags: card.chanelsTags,
-                          vidTitle: card.vidTitle,
-                          vidDuration: card.vidDuration,
-                          vidDate: card.vidDate,
-                          vidLink: card.vidLink,
-                          vidDescription: card.vidDescription,
-                          vidThumbnail: card.vidThumbnail,
-                          chanelLogo: card.chanelLogo,
-                          channelId: card.channelId,
-                          vidId: card.vidId,
-                          vidPlatform: card.vidPlatform,
-                          isNewReleased: '',
+                        return InkWell(
+                          child: HomeContentView(
+                            chanelName: card.chanelName,
+                            chanelsTags: card.chanelsTags,
+                            vidTitle: card.vidTitle,
+                            vidDuration: card.vidDuration,
+                            vidDate: card.vidDate,
+                            vidLink: card.vidLink,
+                            vidDescription: card.vidDescription,
+                            vidThumbnail: card.vidThumbnail,
+                            chanelLogo: card.chanelLogo,
+                            channelId: card.channelId,
+                            vidId: card.vidId,
+                            vidPlatform: card.vidPlatform,
+                            isNewReleased: '',
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsView(
+                                  chanelName: card.chanelName,
+                                  chanelsTags: card.chanelsTags,
+                                  vidTitle: card.vidTitle,
+                                  vidDuration: card.vidDuration,
+                                  vidDate: card.vidDate,
+                                  vidLink: card.vidLink,
+                                  vidDescription: card.vidDescription,
+                                  vidThumbnail: card.vidThumbnail,
+                                  chanelLogo: card.chanelLogo,
+                                  vidPlatform: card.vidPlatform,
+                                  isNewReleased: card.isNewReleased,
+                                  vidTime: card.vidTime,
+                                ),
+                              ),
+                            );
+                          },
                         );
                       } else {
                         return const Padding(

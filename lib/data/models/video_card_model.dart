@@ -4,6 +4,7 @@ class VideoCard {
   final String chanelLogo;
   final String chanelsTags;
   final int channelId;
+  final bool isNewReleased;
 
   // Video properties
   final String vidTitle;
@@ -30,11 +31,14 @@ class VideoCard {
     required this.vidLink,
     required this.vidDescription,
     required this.vidPlatform,
+    required this.isNewReleased,
   });
 
   factory VideoCard.fromJson(Map<String, dynamic> json) {
     return VideoCard(
-      json['vidTime'] ?? '', // Positional argument for vidTime
+      json['vidTime'] ?? '',
+      isNewReleased:
+          json['isNewReleased'] == false, // Positional argument for vidTime
       chanelName: json['chanelName'] ?? '',
       chanelLogo: json['chanelLogo'] ?? '', // Direct string
       chanelsTags: json['chanelsTags'] ?? '',

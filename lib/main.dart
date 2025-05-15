@@ -27,6 +27,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MainView(),
+      //this how to delete the fucking debug label
+      debugShowCheckedModeBanner: false,
     );
   }
 }

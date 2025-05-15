@@ -13,6 +13,11 @@ class SettingView extends StatefulWidget {
 class _SettingView extends State<SettingView> {
   @override
   Widget build(BuildContext context) {
-    return DetailsView();
+    return Container(
+      color: Colors.green[100],
+      child: const Center(
+        child: Text('Setting View'),
+      ),
+    );
   }
 }

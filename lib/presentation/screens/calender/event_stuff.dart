@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:reco_is_here/presentation/screens/calender/calender_strapi_event.dart';
+import 'package:reco_is_here/presentation/screens/home/widgets/details_page/details_view.dart';
 
 // Function to get event hashcode for LinkedHashMap
 int getHashCode(DateTime key) {
@@ -51,7 +52,23 @@ class CalendarEventCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: InkWell(
           onTap: () {
-            // Handle tap event - could navigate to video details
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailsView(
+                          chanelName: strapiEvent.chanelName,
+                          chanelsTags: strapiEvent.chanelsTags,
+                          vidTitle: strapiEvent.vidTitle,
+                          vidDuration: strapiEvent.vidDuration,
+                          vidDate: strapiEvent.eventDate.toString(),
+                          vidLink: strapiEvent.vidLink,
+                          vidDescription: strapiEvent.vidDescription,
+                          chanelLogo: strapiEvent.chanelLogo,
+                          vidThumbnail: strapiEvent.vidThumbnail,
+                          vidPlatform: strapiEvent.vidPlatform,
+                          isNewReleased: strapiEvent.isNewReleased,
+                          vidTime: strapiEvent.vidTime,
+                        )));
           },
           child: Padding(
             padding: const EdgeInsets.all(12.0),
