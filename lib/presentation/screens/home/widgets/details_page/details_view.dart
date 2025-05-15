@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_carousel/infinite_carousel.dart';
 import 'package:reco_is_here/core/constants/app_colors.dart';
-import 'package:reco_is_here/presentation/screens/home/widgets/details_page/comlex.dart';
-import 'package:reco_is_here/presentation/screens/home/widgets/details_page/horizontal.dart';
-import 'package:reco_is_here/presentation/screens/home/widgets/details_page/vertical.dart';
-import 'package:appinio_swiper/appinio_swiper.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({super.key});
@@ -50,46 +46,64 @@ class _DetailsView extends State<DetailsView> {
                     height: 220,
                     child: Card(
                       elevation: 5,
-                      child: Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              width: 360,
-                              height: 250,
-                              //color: Colors.green,
-                              child: Image.asset(
-                                'images/t1.jpg',
-                                fit: BoxFit.fill,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image.asset(
-                                      'images/video-placeholder.png',
-                                      fit: BoxFit.fill);
-                                },
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 10,
-                            left: 10,
-                            child: SizedBox(
-                              width: 35,
-                              height: 35,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                width: 360,
+                                height: 250,
+                                //  color: Colors.indigo.withValues(alpha: 0.5),
                                 child: Image.asset(
-                                  'images/yt logo.avif',
+                                  'images/t1.jpg',
                                   fit: BoxFit.fill,
                                   errorBuilder: (context, error, stackTrace) {
                                     return Image.asset(
-                                        'images/image_placeholder.png',
+                                        'images/video-placeholder.png',
                                         fit: BoxFit.fill);
                                   },
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            //the blue backgraound above it
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                  width: 360,
+                                  height: 250,
+                                  color: Colors.indigo.withValues(alpha: 0.5),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.play_arrow,
+                                      color: Colors.white,
+                                      size: 100,
+                                    ),
+                                  )),
+                            ),
+                            Positioned(
+                              bottom: 10,
+                              left: 10,
+                              child: SizedBox(
+                                width: 35,
+                                height: 35,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    'images/yt logo.avif',
+                                    fit: BoxFit.fill,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image.asset(
+                                          'images/image_placeholder.png',
+                                          fit: BoxFit.fill);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -694,7 +708,7 @@ class _DetailsView extends State<DetailsView> {
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.normal,
                           fontStyle: FontStyle.normal),
                     ),
                   ),
