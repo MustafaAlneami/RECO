@@ -4,6 +4,7 @@ import 'package:reco_is_here/core/constants/app_colors.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/details_page/comlex.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/details_page/horizontal.dart';
 import 'package:reco_is_here/presentation/screens/home/widgets/details_page/vertical.dart';
+import 'package:appinio_swiper/appinio_swiper.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({super.key});
@@ -469,6 +470,139 @@ class _DetailsView extends State<DetailsView> {
                     ),
                   ),
                   //TODO   debugShowCheckedModeBanner: false,
+                  SizedBox(
+                    height: 200,
+                    child: InfiniteCarousel.builder(
+                      itemCount: 3,
+                      itemExtent: MediaQuery.of(context).size.width - 40,
+                      center: true,
+                      loop: true, // Enable infinite looping
+                      anchor: 0.0,
+                      velocityFactor: 0.2,
+                      onIndexChanged: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      controller: controller,
+                      itemBuilder: (context, itemIndex, realIndex) {
+                        // Define the data for each card
+                        final List<Map<String, dynamic>> carouselData = [
+                          {
+                            'icon': '⏱️',
+                            'label': 'Duration',
+                            'value': '10:23',
+                            'color': Color(0xFFF8BBD0).withAlpha(40),
+                            'iconBg': Colors.indigo.shade50,
+                          },
+                          {
+                            'icon': '📅',
+                            'label': 'Date',
+                            'value': '4th June 2025',
+                            'color': Colors.white,
+                            'iconBg': Colors.indigo.shade50,
+                          },
+                          {
+                            'icon': '🕙',
+                            'label': 'Time',
+                            'value': '10:23 GMT',
+                            'color': Color(0xFFF8BBD0).withAlpha(40),
+                            'iconBg': Colors.indigo,
+                            'iconColor': Colors.white,
+                          },
+                        ];
+
+                        final item =
+                            carouselData[itemIndex % carouselData.length];
+
+                        return AnimatedBuilder(
+                          animation: controller,
+                          builder: (context, child) {
+                            final diff = (controller.offset -
+                                (MediaQuery.of(context).size.width - 40) *
+                                    realIndex);
+                            const maxPadding = 10.0;
+                            final carouselRatio =
+                                (MediaQuery.of(context).size.width - 40) /
+                                    maxPadding;
+
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                top: (diff / carouselRatio).abs(),
+                                bottom: (diff / carouselRatio).abs(),
+                              ),
+                              child: child,
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: item['color'] as Color,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withAlpha(20),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: item['iconBg'] as Color,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      padding: EdgeInsets.all(12),
+                                      child: Text(
+                                        item['icon']!,
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          color: item.containsKey('iconColor')
+                                              ? item['iconColor'] as Color
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 16),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '${item['label']}:',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: AppColors.primaryColor,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          item['value']!,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                   Container(
                     alignment: Alignment.topCenter,
                     child: Column(
