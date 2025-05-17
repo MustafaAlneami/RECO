@@ -1,16 +1,23 @@
-# reco_is_here
+# 📱 Reco – Control your Content consumption
 
-A new Flutter project.
+Reco is a Flutter app that helps users make scheduled content from ' great small creators' — like YouTube videos, Twitch streams, and podcasts —   organized by tags, genres, and interests. 
 
-## Getting Started
+## 🚀 Features
 
-This project is a starting point for a Flutter application.
+- Scheduale contents from creators you want to follow
+- Recomend new great content based on your interests
+- Filter content by tags (e.g., Vlogs, Podcasts, Gaming)
+- Create safe content space to children/teens based on parents recomendations
+ 
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Frontend:** Flutter (MVVM, Provider, REST API,  )
+- **Backend:** Strapi (CMS hosted on Render)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🖼 Screenshots
+
+![Home Screen](images/screenshots/1.png)
+![Explore Screen](images/screenshots/1.png)
+
+
