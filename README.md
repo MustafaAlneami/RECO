@@ -17,7 +17,10 @@ Reco is a Flutter app that helps users make scheduled content from ' great small
 
 ## 🖼 Screenshots
 
-![Home Screen](images/screenshots/1.png)
-![Explore Screen](images/screenshots/1.png)
-
+![RECO APP](images/screenshots/1.png)
+![Welcome](images/screenshots/2.png)
+![Home Screen](images/screenshots/3.png)
+![canlandar Screen](images/screenshots/4.png)
+![details Screen](images/screenshots/5.png)
+![some Screens](images/screenshots/6.png)
 
