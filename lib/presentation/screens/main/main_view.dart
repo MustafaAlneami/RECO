@@ -91,7 +91,7 @@ class MainView extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.shopify,
+                  Icons.shopping_bag,
                   size: 30,
                 ),
                 color:

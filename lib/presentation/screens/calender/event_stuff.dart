@@ -126,13 +126,13 @@ class CalendarEventCard extends StatelessWidget {
                                 strapiEvent.chanelName,
                                 style: TextStyle(
                                     color: Colors.grey[600],
-                                    fontSize: 14,
+                                    fontSize: 12,
                                     fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(width: 7),
                               Icon(
                                 Icons.access_time,
-                                size: 16,
+                                size: 12,
                                 color: Colors.grey[600],
                               ),
                               const SizedBox(width: 1),
@@ -140,7 +140,7 @@ class CalendarEventCard extends StatelessWidget {
                                 strapiEvent.vidTime,
                                 style: TextStyle(
                                   color: Colors.grey[600],
-                                  fontSize: 13,
+                                  fontSize: 12,
                                 ),
                               ),
                             ],
